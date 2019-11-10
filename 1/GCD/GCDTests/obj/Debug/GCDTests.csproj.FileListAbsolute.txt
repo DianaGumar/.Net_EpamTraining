@@ -1,0 +1,16 @@
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\GCDTests.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\GCDTests.pdb
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\GCD.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\GCD.pdb
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\obj\Debug\GCDTests.csprojAssemblyReference.cache
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\obj\Debug\GCDTests.csproj.CoreCompileInputs.cache
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\obj\Debug\GCDTests.csproj.CopyComplete
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\obj\Debug\GCDTests.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCDTests\obj\Debug\GCDTests.pdb

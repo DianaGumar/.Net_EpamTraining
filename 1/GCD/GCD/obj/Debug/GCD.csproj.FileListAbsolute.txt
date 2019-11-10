@@ -1,0 +1,6 @@
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCD\bin\Debug\GCD.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCD\bin\Debug\GCD.pdb
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCD\obj\Debug\GCD.csprojAssemblyReference.cache
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCD\obj\Debug\GCD.csproj.CoreCompileInputs.cache
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCD\obj\Debug\GCD.dll
+E:\EpamC#\.Net_EpamTraining\1\GCD\GCD\obj\Debug\GCD.pdb
