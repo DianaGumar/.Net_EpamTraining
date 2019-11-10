@@ -37,5 +37,37 @@ namespace GCDTests
             Assert.AreEqual(expected, actual);
 
         }
+
+        [TestMethod]
+        public void TestgetGCDbinaryEuclidean()
+        {
+
+            //arrange
+            int actual, expected = 4464;
+            int x = 624960, y = 49104;
+
+            //act
+            actual = GCD.GCD.getGCDbinaryEuclidean(x, y);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestgetGCDbinaryEuclidean_zero()
+        {
+
+            //arrange
+            int actual, expected = 0;
+            int x = 0, y = 0;
+
+            //act
+            actual = GCD.GCD.getGCDbinaryEuclidean(x, y);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+
+        }
     }
 }
