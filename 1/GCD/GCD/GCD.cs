@@ -8,8 +8,28 @@ namespace GCD
 {
     public class GCD
     {
+        /// <summary>
+        /// подготавливает данные для гистограммы
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static Dictionary<int, long> getTimeStatistic(int x, int y)
+        {
+            Dictionary<int, long> timeStatistic = new Dictionary<int, long>();
+            long timeTick = 0;
 
-        Double timeEuclideanIt, binaryEuclideanIt;
+            //ключ 0 - нод по евклидовому методу
+            getGCD_EuclidianIt(x, y, out timeTick);
+            timeStatistic.Add(0, timeTick);
+
+            //ключ 1 - нод по бинарному евкллидовому методу
+            getGCDbinaryEuclideanIt(x, y, out timeTick);
+            timeStatistic.Add(1, timeTick);
+
+            return timeStatistic;
+
+        }
+
 
         /// <summary>
         /// итерационный Алгоритм Евклида по вычислению НОД двух целых чисел 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GCDTests
@@ -104,4 +105,25 @@ namespace GCDTests
 
     }
 
-}
+
+    [TestClass]
+    public class TestData
+    {
+        [TestMethod]
+        public void TestgetTimeStatistic()
+        {
+
+            //arrange
+            Dictionary<int, long> actual;
+            int x = 624960, y = 49104;
+
+            //act
+            actual = GCD.GCD.getTimeStatistic(x, y);
+
+            //assert
+            Assert.AreEqual(true, actual != null);
+
+        }
+    }
+
+    }
