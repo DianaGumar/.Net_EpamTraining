@@ -4,18 +4,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace GCDTests
 {
     [TestClass]
-    public class Test
+    public class TestRecursive
     {
         [TestMethod]
-        public void TestgetGCD_Euclidean_2()
-        {          
+        public void TestgetGCD_Euclidean()
+        {
 
             //arrange
             int actual, expected = 4464;
             int x = 624960, y = 49104;
+            long time = 0;
 
             //act
-            actual = GCD.GCD.getGCD_Euclidean(x, y);
+            actual = GCD.GCD.getGCD_Euclidean(x, y, out time);
 
             //assert
             Assert.AreEqual(expected, actual);
@@ -24,14 +25,16 @@ namespace GCDTests
 
         [TestMethod]
         public void TestgetGCD_Euclidean_4()
-        {          
+        {
 
             //arrange
             int actual, expected = 6;
             int x = 78, y = 294, z = 570, k = 36;
 
+            long timeTick;
+
             //act
-            actual = GCD.GCD.getGCD_Euclidean(x, y, z, k);
+            actual = GCD.GCD.getGCD_Euclidean(x, y, z, k, out timeTick);
 
             //assert
             Assert.AreEqual(expected, actual);
@@ -46,8 +49,34 @@ namespace GCDTests
             int actual, expected = 4464;
             int x = 624960, y = 49104;
 
+            long timeTick;
+
             //act
-            actual = GCD.GCD.getGCDbinaryEuclidean(x, y);
+            actual = GCD.GCD.getGCDbinaryEuclidean(x, y, out timeTick);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+    }
+
+
+    [TestClass]
+    public class TestIterative
+    {
+        [TestMethod]
+        public void TestgetGCD_EuclidianIt()
+        {
+
+            //arrange
+            int actual, expected = 4464;
+            int x = 624960, y = 49104;
+
+            long timeTick = 0;
+
+            //act
+            actual = GCD.GCD.getGCD_EuclidianIt(x, y, out timeTick);
 
             //assert
             Assert.AreEqual(expected, actual);
@@ -55,19 +84,24 @@ namespace GCDTests
         }
 
         [TestMethod]
-        public void TestgetGCDbinaryEuclidean_zero()
+        public void TestgetGCDbinaryEuclideanIt()
         {
 
             //arrange
-            int actual, expected = 0;
-            int x = 0, y = 0;
+            int actual, expected = 4464;
+            int x = 624960, y = 49104;
+
+            long timeTick = 0;
 
             //act
-            actual = GCD.GCD.getGCDbinaryEuclidean(x, y);
+            actual = GCD.GCD.getGCDbinaryEuclideanIt(x, y, out timeTick);
+            
 
             //assert
             Assert.AreEqual(expected, actual);
 
         }
+
     }
+
 }
