@@ -9,19 +9,14 @@ namespace Task2
     /// <summary>
     /// трёхмерный вектор
     /// </summary>
-    public class vector
+    public class Vector : MathObject
     {
-        vector(double x, double y, double z)
+        public Vector(double[] a)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            
+            base.a = a;
+
         }
 
-        double x { get; }
-        double y { get; }
-        double z { get; }
 
         /// <summary>
         /// скалярное произведение трёхмерных векторов
@@ -29,18 +24,18 @@ namespace Task2
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public double multiplying(vector v, vector u)
+        public double multiplying(Vector v, Vector u)
         {
-            return v.x * u.x + v.y * u.y + v.z * u.z;
+            return v.a[0] * u.a[0] + v.a[1] * u.a[1] + v.a[2] * u.a[2];
         }
 
         /// <summary>
-        /// сложение трёхмерных векторов
+        /// сложение многочлена от одной переменной
         /// </summary>
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public static vector operator +(vector v, vector u) { return new vector(v.x + u.x, v.y + u.y, v.z + u.z); }
+        public static Vector operator +(Vector v, Vector u) { return new Vector(new double[] { v.a[0] + u.a[0], v.a[1] + u.a[1], v.a[2] + u.a[2] }); }
 
         /// <summary>
         /// вычитание трёхмерных векторов
@@ -48,7 +43,7 @@ namespace Task2
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public static vector operator -(vector v, vector u) { return new vector(v.x - u.x, v.y - u.y, v.z - u.z); }
+        public static Vector operator -(Vector v, Vector u) { return new Vector(new double[] { v.a[0] - u.a[0], v.a[1] - u.a[1], v.a[2] - u.a[2]}); }
 
         /// <summary>
         /// векторное произведение трёхмерных векторов
@@ -56,11 +51,15 @@ namespace Task2
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public static vector operator *(vector v, vector u) {
-            return new vector(((v.y * u.z) - (u.y * v.z)), - 
-                             ((v.x * u.z) - (u.x * v.z)), + 
-                             ((v.x * u.y) - (u.x * v.y))); }
+        public static Vector operator *(Vector v, Vector u)
+        {
 
-        
+            //метод нацеленный исключительно на трёхмерный вектор
+            return new Vector(new double[]{((v.a[1] * u.a[2]) - (u.a[1] * v.a[2])), -
+                                         ((v.a[0] * u.a[2]) - (u.a[0] * v.a[2])), +
+                                         ((v.a[0] * u.a[1]) - (u.a[0] * v.a[1])) });
+        }
+
+
     }
 }
