@@ -1,0 +1,6 @@
+E:\Epam\.Net_EpamTraining\2\Task2\bin\Debug\Task2.dll
+E:\Epam\.Net_EpamTraining\2\Task2\bin\Debug\Task2.pdb
+E:\Epam\.Net_EpamTraining\2\Task2\obj\Debug\Task2.csprojAssemblyReference.cache
+E:\Epam\.Net_EpamTraining\2\Task2\obj\Debug\Task2.csproj.CoreCompileInputs.cache
+E:\Epam\.Net_EpamTraining\2\Task2\obj\Debug\Task2.dll
+E:\Epam\.Net_EpamTraining\2\Task2\obj\Debug\Task2.pdb

@@ -25,7 +25,7 @@ namespace Task2
             this.a = a;
         }
 
-        protected double[] a { get; set; }
+        public double[] a { get; set; }
 
     }
 }

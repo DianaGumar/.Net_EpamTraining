@@ -4,17 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace Task2
 {
     /// <summary>
-    /// трёхмерный вектор
+    /// многочлен от одной переменной 
     /// </summary>
-    public class Polinomial : MathObject
+    //todo реализовать для любой степени многочлена
+    public class Polinomial : IEquatable<Polinomial>
     {
         public Polinomial(double[] a)
         {
-            base.a = a;
 
+            this.a = a;
+
+        }
+
+        public double[] a { get; set; }
+
+        /// <summary>
+        /// расчитывает значение многочлена при известной неизвестной
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public double getAnsver(double x)
+        {
+            double ansver = 0;
+            int i = 0, degree = a.Length-1;
+            while (i < a.Length)
+            {
+                ansver += a[i] * Math.Pow(x, degree);
+
+                degree--;
+                i++;
+            }
+
+            return ansver;
+        }
+
+        public bool Equals(Polinomial other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return a[0] == other.a[0] && a[1] == other.a[1] && a[2] == other.a[2];
+            //return EqualityComparer<double[]>.Default.Equals(a, other.a);
+
+        }
+
+        public override int GetHashCode()
+        {
+            return -1757793268 + EqualityComparer<double[]>.Default.GetHashCode(a);
         }
 
         /// <summary>

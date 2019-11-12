@@ -9,14 +9,17 @@ namespace Task2
     /// <summary>
     /// трёхмерный вектор
     /// </summary>
-    public class Vector : MathObject
+    public class Vector
     {
+
         public Vector(double[] a)
         {
-            base.a = a;
+            this.a = a;
 
         }
 
+
+        public double[] a { get; set; }
 
         /// <summary>
         /// скалярное произведение трёхмерных векторов
@@ -24,9 +27,24 @@ namespace Task2
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public double multiplying(Vector v, Vector u)
+        public static double multiplying(Vector v, Vector u)
         {
             return v.a[0] * u.a[0] + v.a[1] * u.a[1] + v.a[2] * u.a[2];
+        }
+
+
+        public bool Equals(Vector other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return a[0] == other.a[0] && a[1] == other.a[1] && a[2] == other.a[2];
+            //return EqualityComparer<double[]>.Default.Equals(a, other.a);
+
+        }
+
+        public override int GetHashCode()
+        {
+            return -1757793268 + EqualityComparer<double[]>.Default.GetHashCode(a);
         }
 
         /// <summary>
@@ -35,7 +53,10 @@ namespace Task2
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public static Vector operator +(Vector v, Vector u) { return new Vector(new double[] { v.a[0] + u.a[0], v.a[1] + u.a[1], v.a[2] + u.a[2] }); }
+        public static Vector operator +(Vector v, Vector u)
+        {
+            return new Vector(new double[] { v.a[0] + u.a[0], v.a[1] + u.a[1], v.a[2] + u.a[2] });
+        }
 
         /// <summary>
         /// вычитание трёхмерных векторов
@@ -43,7 +64,10 @@ namespace Task2
         /// <param name="v"></param>
         /// <param name="u"></param>
         /// <returns></returns>
-        public static Vector operator -(Vector v, Vector u) { return new Vector(new double[] { v.a[0] - u.a[0], v.a[1] - u.a[1], v.a[2] - u.a[2]}); }
+        public static Vector operator -(Vector v, Vector u)
+        {
+            return new Vector(new double[] { v.a[0] - u.a[0], v.a[1] - u.a[1], v.a[2] - u.a[2]});
+        }
 
         /// <summary>
         /// векторное произведение трёхмерных векторов

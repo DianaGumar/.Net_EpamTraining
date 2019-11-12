@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="polynomial.cs" />
-    <Compile Include="vector.cs" />
+    <Compile Include="MathObject.cs" />
+    <Compile Include="Polynomial.cs" />
+    <Compile Include="Vector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
