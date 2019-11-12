@@ -9,19 +9,23 @@ using System.Threading.Tasks;
 namespace Task2
 {
     /// <summary>
-    /// многочлен от одной переменной 
+    /// многочлен от одной переменной
     /// </summary>
-    //todo реализовать для любой степени многочлена
     public class Polinomial : IEquatable<Polinomial>
     {
-        public Polinomial(double[] a)
+        public Polinomial(List<double> a)
         {
 
             this.a = a;
 
         }
 
-        public double[] a { get; set; }
+        public Polinomial()
+        {
+            a = new List<double>();
+        }
+
+        public List<double> a { get; set; }
 
         /// <summary>
         /// расчитывает значение многочлена при известной неизвестной
@@ -30,9 +34,10 @@ namespace Task2
         /// <returns></returns>
         public double getAnsver(double x)
         {
+
             double ansver = 0;
-            int i = 0, degree = a.Length-1;
-            while (i < a.Length)
+            int i = 0, degree = a.Count-1;
+            while (i < a.Count)
             {
                 ansver += a[i] * Math.Pow(x, degree);
 
@@ -43,19 +48,36 @@ namespace Task2
             return ansver;
         }
 
+        /// <summary>
+        /// сравнивает экземпляры данного класса по полю double[] a
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(Polinomial other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return a[0] == other.a[0] && a[1] == other.a[1] && a[2] == other.a[2];
-            //return EqualityComparer<double[]>.Default.Equals(a, other.a);
+            for (int i = 0; i < a.Count; i++)
+            {
+                if (a[i] == other.a[i])
+                    continue;
+                return false;
+            }
+
+            return true;
+
+            //return EqualityComparer<List<double>>.Default.Equals(a, other.a);
 
         }
 
+        /// <summary>
+        /// переопределённый метод hashCode
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
-            return -1757793268 + EqualityComparer<double[]>.Default.GetHashCode(a);
+            return -1757793268 + EqualityComparer<List<double>>.Default.GetHashCode(a);
         }
 
         /// <summary>
@@ -66,7 +88,15 @@ namespace Task2
         /// <returns></returns>
         public static Polinomial operator +(Polinomial v, Polinomial u)
         {
-            return new Polinomial(new double[] { v.a[0] + u.a[0], v.a[1] + u.a[1], v.a[2] + u.a[2] });
+            Polinomial z = new Polinomial();
+
+            for (int i = 0; i < v.a.Count; i++)
+            {
+                z.a.Add(v.a.ElementAt(i) + u.a.ElementAt(i));
+
+            }
+
+            return z;
         }
 
         /// <summary>
@@ -77,7 +107,15 @@ namespace Task2
         /// <returns></returns>
         public static Polinomial operator -(Polinomial v, Polinomial u)
         {
-            return new Polinomial(new double[] { v.a[0] - u.a[0], v.a[1] - u.a[1], v.a[2] - u.a[2] });
+            Polinomial z = new Polinomial();
+
+            for (int i = 0; i < v.a.Count; i++)
+            {
+                z.a.Add(v.a.ElementAt(i) - u.a.ElementAt(i));
+
+            }
+
+            return z;
         }
 
         /// <summary>
@@ -88,7 +126,15 @@ namespace Task2
         /// <returns></returns>
         public static Polinomial operator *(Polinomial v, Polinomial u)
         {
-            return new Polinomial(new double[] { v.a[0] * u.a[0], v.a[1] * u.a[1], v.a[2] * u.a[2] });
+            Polinomial z = new Polinomial();
+
+            for (int i = 0; i < v.a.Count; i++)
+            {
+                z.a.Add(v.a.ElementAt(i) * u.a.ElementAt(i));
+
+            }
+
+            return z;
         }
 
         /// <summary>
@@ -99,7 +145,15 @@ namespace Task2
         /// <returns></returns>
         public static Polinomial operator /(Polinomial v, Polinomial u)
         {
-            return new Polinomial(new double[] { v.a[0] / u.a[0], v.a[1] / u.a[1], v.a[2] / u.a[2] });
+            Polinomial z = new Polinomial();
+
+            for (int i = 0; i < v.a.Count; i++)
+            {
+                z.a.Add(v.a.ElementAt(i) / u.a.ElementAt(i));
+
+            }
+
+            return z;
         }
 
 

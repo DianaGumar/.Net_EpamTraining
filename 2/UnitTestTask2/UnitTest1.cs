@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using Task2;
 
 namespace UnitTestTask2
@@ -11,7 +12,7 @@ namespace UnitTestTask2
         [TestMethod]
         public void TestAnsver()
         {
-            Polinomial v = new Polinomial(new double[] { 1, 2, 3 });
+            Polinomial v = new Polinomial(new List<double>() { 1, 2, 3 });
 
             double expected = 11;
             double actual;
@@ -25,10 +26,10 @@ namespace UnitTestTask2
         [TestMethod]
         public void TestSum() 
         {
-            Polinomial v = new Polinomial(new double[] { 1, 1, 1 });
-            Polinomial u = new Polinomial(new double[] { 2, 3, 4 });
+            Polinomial v = new Polinomial(new List<double>() { 1, 1, 1 });
+            Polinomial u = new Polinomial(new List<double>() { 2, 3, 4 });
 
-            Polinomial expected = new Polinomial(new double[] { 3, 4, 5 });
+            Polinomial expected = new Polinomial(new List<double>() { 3, 4, 5 });
             Polinomial actual;
 
             actual = v + u;
@@ -40,10 +41,10 @@ namespace UnitTestTask2
         [TestMethod]
         public void TestDif() 
         {
-            Polinomial v = new Polinomial(new double[] { 1, 1, 1 });
-            Polinomial u = new Polinomial(new double[] { 2, 3, 4 });
+            Polinomial v = new Polinomial(new List<double>() { 1, 1, 1 });
+            Polinomial u = new Polinomial(new List<double>() { 2, 3, 4 });
 
-            Polinomial expected = new Polinomial(new double[] { -1, -2, -3 });
+            Polinomial expected = new Polinomial(new List<double>() { -1, -2, -3 });
             Polinomial actual;
 
             actual = v - u;
@@ -55,10 +56,10 @@ namespace UnitTestTask2
         [TestMethod]
         public void TestMultyplexing() 
         {
-            Polinomial v = new Polinomial(new double[] { 1, 2, 1 });
-            Polinomial u = new Polinomial(new double[] { 2, 3, 4 });
+            Polinomial v = new Polinomial(new List<double>() { 1, 2, 1 });
+            Polinomial u = new Polinomial(new List<double>() { 2, 3, 4 });
 
-            Polinomial expected = new Polinomial(new double[] { 2, 6, 4 });
+            Polinomial expected = new Polinomial(new List<double>() { 2, 6, 4 });
             Polinomial actual;
 
             actual = v * u;
@@ -70,10 +71,10 @@ namespace UnitTestTask2
         [TestMethod]
         public void TestDivision()
         {
-            Polinomial v = new Polinomial(new double[] { 4, 6, 8 });
-            Polinomial u = new Polinomial(new double[] { 2, 3, 4 });
+            Polinomial v = new Polinomial(new List<double>() { 4, 6, 8 });
+            Polinomial u = new Polinomial(new List<double>() { 2, 3, 4 });
 
-            Polinomial expected = new Polinomial(new double[] { 2, 2, 2 });
+            Polinomial expected = new Polinomial(new List<double>() { 2, 2, 2 });
             Polinomial actual;
 
             actual = v / u;
