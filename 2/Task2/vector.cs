@@ -19,10 +19,48 @@ namespace Task2
             
         }
 
-        double x, y, z;
+        double x { get; }
+        double y { get; }
+        double z { get; }
 
-        public static vector operator +(vector v, vector u) { }
+        /// <summary>
+        /// скалярное произведение трёхмерных векторов
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="u"></param>
+        /// <returns></returns>
+        public double multiplying(vector v, vector u)
+        {
+            return v.x * u.x + v.y * u.y + v.z * u.z;
+        }
 
+        /// <summary>
+        /// сложение трёхмерных векторов
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="u"></param>
+        /// <returns></returns>
+        public static vector operator +(vector v, vector u) { return new vector(v.x + u.x, v.y + u.y, v.z + u.z); }
 
+        /// <summary>
+        /// вычитание трёхмерных векторов
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="u"></param>
+        /// <returns></returns>
+        public static vector operator -(vector v, vector u) { return new vector(v.x - u.x, v.y - u.y, v.z - u.z); }
+
+        /// <summary>
+        /// векторное произведение трёхмерных векторов
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="u"></param>
+        /// <returns></returns>
+        public static vector operator *(vector v, vector u) {
+            return new vector(((v.y * u.z) - (u.y * v.z)), - 
+                             ((v.x * u.z) - (u.x * v.z)), + 
+                             ((v.x * u.y) - (u.x * v.y))); }
+
+        
     }
 }
