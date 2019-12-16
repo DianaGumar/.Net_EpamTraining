@@ -19,7 +19,6 @@ namespace UnitTestOrigami
         {
             Material Paper = new Paper(50,50);
             Material Film = new Film(50,50);
-            Packege<Material> box = new Box();
 
             double x = 49;
             double expected = Math.Sqrt(x*x+(x/2)*(x/2))*2 + x;
@@ -40,7 +39,6 @@ namespace UnitTestOrigami
         {
             Material Paper = new Paper(50,50);
             Material Film = new Film(50,50);
-            Packege<Material> box = new Box();
 
             double x = 48;
             double expected = x*x;
@@ -62,7 +60,6 @@ namespace UnitTestOrigami
         {
             Material Paper = new Paper(50, 50);
             Material Film = new Film(50, 50);
-            Packege<Material> box = new Box();
 
             bool expected = false;
 
@@ -99,7 +96,9 @@ namespace UnitTestOrigami
             box.Add(Film);
             box.Add(Paper);
 
-            bool actual = box.ExportByMaterial(@"E:\Epam\.Net_EpamTraining\3\Origami\1.txt", MaterialType.Paper);
+            bool actual = box.ExportByMaterial(
+                @"E:\Epam\.Net_EpamTraining\3\", 
+                MaterialType.Paper, false, true);
 
             Assert.AreEqual(expected, actual);
 
@@ -116,14 +115,67 @@ namespace UnitTestOrigami
             bool expected = true;
             bool actual = false;
 
-            box.ImportAllFromTxt(@"E:\Epam\.Net_EpamTraining\3\Origami\1.txt");
-            //actual = box.ExportByMaterial(@"E:\Epam\.Net_EpamTraining\3\Origami\1.txt", MaterialType.Paper);
+            box.ImportAllFromTxt(@"E:\Epam\.Net_EpamTraining\3\Materials_.txt");
 
             if (box.Count() != 0) { actual = true; }
 
             Assert.AreEqual(expected, actual);
 
         }
+
+        /// <summary>
+        /// test export by XML
+        /// </summary>
+        [TestMethod]
+        public void TestExportXML()
+        {
+            Material Paper = new Paper(50, 50);
+            Material Film = new Film(50, 50);
+            Box box = new Box();
+
+            bool expected = true;
+
+            Film = gurl.CutTriangle(Film);
+            box.Add(Film);
+            Film = gurl.CutRectangle(Film);
+
+            Paper = gurl.CutCircle(Paper);
+            box.Add(Paper);
+            Paper = gurl.CutTriangle(Paper);
+
+            box.Add(Film);
+            box.Add(Paper);
+
+            bool actual = box.ExportByMaterial(
+                @"E:\Epam\.Net_EpamTraining\3\", 
+                MaterialType.All,
+                true, false);
+            
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// test import by XML
+        /// </summary>
+        [TestMethod]
+        public void TestImportXML()
+        {
+            Box box = new Box();
+
+            bool expected = true;
+            bool actual = false;
+
+            box.ImportAllFromXML(@"E:\Epam\.Net_EpamTraining\3\Materials_.xml");
+
+            if (box.Count() != 0) { actual = true; }
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
 
 
     }

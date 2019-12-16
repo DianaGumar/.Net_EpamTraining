@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Pack
 {
-    public abstract class Packege<T>
+    public abstract class Packege<T, N>
     {
-        public abstract bool Export(string FileName, List<T> ts);
+        internal List<T> figures;
+
+        public abstract bool Export(string FileName, List<T> ts );
+        public abstract bool ExportByMaterial(string FileName, N materials);
+        public abstract void Add(T obj);
     }
 }

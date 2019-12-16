@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Export;
-using Pack.Decorators;
 using System.Text.RegularExpressions;
 
 namespace Pack
 {
-    public class Box : Packege<Material>
+    /// <summary>
+    /// packege for Materials
+    /// </summary>
+    public class Box
     {
 
         public Box()
@@ -18,25 +20,33 @@ namespace Pack
 
         List<Material> figures;
 
+        /// <summary>
+        /// add to box if box size less than 20 and don't exist equals figures
+        /// </summary>
+        /// <param name="obj"></param>
         public void Add(Material obj)
         {
-            bool key = true;
 
-            foreach(Material m in figures)
-            {
-                if (m.Equals(obj)) { key = false; }
-            }
-
-            if (key && figures.Count < 20) { figures.Add(obj); }
+            if (!FindByEquals(obj) && figures.Count < 20) { figures.Add(obj); }
             
         }
 
+        /// <summary>
+        /// find by id (don't delete)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Material FindByNumber(int id)
         {
             return figures.ElementAt(id);
             //просмотреть по номеру
         }
 
+        /// <summary>
+        /// just delete by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Material Out(int id)
         {
             Material m = figures[id];
@@ -45,28 +55,45 @@ namespace Pack
             //извлечь по номеру
         }
 
+        /// <summary>
+        /// just change by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="m"></param>
         public void ChangeByNumber(int id, Material m)
         {
             figures[id] = m;
             //заменить по номеру
         }
 
-        public Material FindByEquals(Material obj)
+        /// <summary>
+        /// find by equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>true or false</returns>
+        public bool FindByEquals(Material obj)
         {
             foreach(Material v in figures)
             {
-                if (v.Equals(obj)) { return v;  }
+                if (v.Equals(obj)) { return true;  }
             }
 
-            return null;
-            //ищет такуюже 
+            return false;
         }
 
+        /// <summary>
+        /// just count figures in box
+        /// </summary>
+        /// <returns></returns>
         public int Count()
         {
             return figures.Count;
         }
 
+        /// <summary>
+        /// count all figures perimeters
+        /// </summary>
+        /// <returns></returns>
         public double AllPerimeter()
         {
             double value = 0;
@@ -79,6 +106,10 @@ namespace Pack
             return value;
         }
 
+        /// <summary>
+        /// count all figures(inside box) areas
+        /// </summary>
+        /// <returns></returns>
         public double AllArea()
         {
             double value = 0;
@@ -91,6 +122,11 @@ namespace Pack
             return value;
         }
 
+        /// <summary>
+        /// delete all by type figures
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public List<Material> OutAllByTypeFigures(string str)
         {
             List<Material> ms = new List<Material>();
@@ -111,6 +147,11 @@ namespace Pack
             return ms;
         }
 
+        /// <summary>
+        /// delete all by type Material
+        /// </summary>
+        /// <param name="materialType"></param>
+        /// <returns></returns>
         public List<Material> OutAllByTypeMaterial(MaterialType materialType)
         {
             List<Material> ms = new List<Material>();
@@ -131,18 +172,55 @@ namespace Pack
             return ms;
         }
 
-        public override bool Export(string FileName, List<Material> ms)
+        /// <summary>
+        /// standart export with export type conditions (to xml or to txt)
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <param name="ms"></param>
+        /// <param name="xml"></param>
+        /// <param name="txt"></param>
+        /// <returns></returns>
+        private bool Export(string FileName, List<Material> ms, bool xml, bool txt)
         {
-            //by defiult
-            var v = new Txt();
-            return v.Write<Material>(ms, FileName);
+            bool ansver = false;
+
+            if(xml && txt)
+            {
+                var x = new XML();
+                ansver = x.Write<Material>(ms, FileName + "Materials_.xml");
+
+                var t = new Txt();
+                ansver = t.Write<Material>(ms, FileName + "Materials_.txt");
+
+            }
+            else if (xml)
+            {
+                var x = new XML();
+                ansver = x.Write<Material>(ms, FileName + "Materials_.xml");
+            }
+            else
+            {
+                var t = new Txt();
+                ansver = t.Write<Material>(ms, FileName + "Materials_.txt");
+            }
+
+            return ansver;
+
         }
 
-        public bool ExportByMaterial(string FileName, MaterialType materials)
+        /// <summary>
+        /// export with some conditions by materials type
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <param name="materials"></param>
+        /// <param name="xml"></param>
+        /// <param name="txt"></param>
+        /// <returns>export was successful or not</returns>
+        public bool ExportByMaterial(string FileName, MaterialType materials, bool xml, bool txt)
         {
             List<Material> ms = new List<Material>();
 
-            if(materials == MaterialType.All) { return Export(FileName, figures); }
+            if(materials == MaterialType.All) { return Export(FileName, figures, xml, txt); }
             else
             {
                 foreach (Material m in figures)
@@ -153,17 +231,25 @@ namespace Pack
                     }
                 }
 
-                return Export(FileName, ms);
+                return Export(FileName, ms, xml, txt);
 
             }            
         }
 
+        /// <summary>
+        /// import all to txt file
+        /// </summary>
+        /// <param name="name"></param>
         public void ImportAllFromTxt(string name)
         {
             Txt txt = new Txt();
             ImportParseString(txt.Read<Material>(name));
         }
 
+        /// <summary>
+        /// import all to xml file
+        /// </summary>
+        /// <param name="name"></param>
         public void ImportAllFromXML(string name)
         {
             XML xml = new XML();

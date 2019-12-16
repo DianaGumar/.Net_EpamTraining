@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Export
 {
+    /// <summary>
+    /// abstract Txt exporter/importer
+    /// </summary>
     public class Txt : Exported
     {
 

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Origami.Materials;
 using Origami.Decorators.Form;
 using Pack;
-using Pack.Decorators;
 using Export;
 
 namespace Controllers
@@ -18,6 +17,11 @@ namespace Controllers
         {
         }
 
+        /// <summary>
+        /// human be able to cut figures 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <returns></returns>
         public Material CutRectangle(Material material)
         {
             return new RectangleDecorator(material);
@@ -31,35 +35,6 @@ namespace Controllers
         public Material CutCircle(Material material)
         {
             return new CircleDecorator(material);
-        }
-
-
-
-        public Packege<Material> ExportPackegeProperties
-            (
-            Packege<Material> packege,
-            string FileName,  
-            bool ExportTxt,
-            bool ExportXML
-            )
-        {
-            if (ExportTxt && ExportXML)
-            {
-                packege = new XMLDecorator<Material>(packege);
-                packege = new TxtDecorator<Material>(packege);
-
-            }
-            else if (ExportTxt)
-            {
-                packege = new TxtDecorator<Material>(packege);
-            }
-            else if (ExportXML)
-            {
-                packege = new XMLDecorator<Material>(packege);
-            }
-
-            return packege;
-
         }
 
 

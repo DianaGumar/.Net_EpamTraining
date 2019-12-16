@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{30C3A460-9E9D-4009-B189-8B5E21441B98}</ProjectGuid>
+    <ProjectGuid>{522BC447-CDED-478C-A7C0-C1A63A224104}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pack</RootNamespace>
-    <AssemblyName>Pack</AssemblyName>
+    <RootNamespace>Origami</RootNamespace>
+    <AssemblyName>Origami</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Pack.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Origami.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,19 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Box.cs" />
-    <Compile Include="Packege.cs" />
+    <Compile Include="Decorators\MaterialDecorator.cs" />
+    <Compile Include="Decorators\Form\CircleDecorator.cs" />
+    <Compile Include="Decorators\Form\RectangleDecorator.cs" />
+    <Compile Include="Decorators\Form\TriangleDecorator.cs" />
+    <Compile Include="Materials\CutFigure.cs" />
+    <Compile Include="Materials\Film.cs" />
+    <Compile Include="Materials\Material.cs" />
+    <Compile Include="Materials\Paper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Export\Export.csproj">
-      <Project>{87c25ebd-8184-4964-b0be-9efbdc1ab959}</Project>
-      <Name>Export</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Origami\Origami.csproj">
-      <Project>{522bc447-cded-478c-a7c0-c1a63a224104}</Project>
-      <Name>Origami</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
