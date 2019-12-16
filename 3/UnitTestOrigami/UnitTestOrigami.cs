@@ -7,7 +7,7 @@ using Pack;
 namespace UnitTestOrigami
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTestOrigami
     {
         Human gurl = new Human();
 
