@@ -175,8 +175,97 @@ namespace UnitTestOrigami
 
         }
 
+        /// <summary>
+        /// two same figures can't be in box
+        /// </summary>
+        [TestMethod]
+        public void TestFindByEquals()
+        {
+            Box box = new Box();
+            Material Paper = new Paper(50, 50);
+            Material Film = new Film(50, 50);
 
+            Paper = gurl.CutTriangle(Paper);
+            Material Paper2 = Paper;
+            box.Add(Paper);
+            box.Add(Paper2);
 
+            int expected = 1;
+            int actual = box.Count();
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// test sum figurese's areas in box
+        /// </summary>
+        [TestMethod]
+        public void TestAllArea()
+        {
+            Box box = new Box();
+            Material Paper = new Paper(50, 50);
+            Material Film = new Film(50, 50);
+
+            Paper = gurl.CutRectangle(Paper);
+            box.Add(Paper);
+            Paper = gurl.CutRectangle(Paper);
+            box.Add(Paper);
+
+            double expected = 49*49+48*48;
+            double actual = box.AllArea();
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// delete only one figure with form rectangle
+        /// </summary>
+        [TestMethod]
+        public void TestOutAllByTypeFigures()
+        {
+            Box box = new Box();
+            Material Paper = new Paper(50, 50);
+            Material Film = new Film(50, 50);
+
+            Paper = gurl.CutRectangle(Paper);
+            box.Add(Paper);
+            Paper = gurl.CutTriangle(Paper);
+            box.Add(Paper);
+
+            box.OutAllByTypeFigures("Rectangle");
+
+            int expected = 1;
+            int actual = box.Count();
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// delete all from box where type material == paper
+        /// </summary>
+        [TestMethod]
+        public void TestOutAllByTypeMaterial()
+        {
+            Box box = new Box();
+            Material Paper = new Paper(50, 50);
+            Material Film = new Film(50, 50);
+
+            Paper = gurl.CutRectangle(Paper);
+            box.Add(Paper);
+            Paper = gurl.CutTriangle(Paper);
+            box.Add(Paper);
+
+            box.OutAllByTypeMaterial(MaterialType.Paper);
+
+            int expected = 0;
+            int actual = box.Count();
+
+            Assert.AreEqual(expected, actual);
+
+        }
 
     }
 }
