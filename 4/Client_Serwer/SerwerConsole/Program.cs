@@ -16,29 +16,7 @@ namespace SerwerConsole
         static void Main(string[] args)
         {
             Server s = new Server(port, address, countClients);
-            //list clients messages;
-            Dictionary<int, List<string>> clients = new Dictionary<int, List<string>>();
-
-            //add event handler
-            s.Notify += (mes, id) =>
-            {
-                bool add = false;
-                foreach(char c in clients.Keys)
-                {
-                    if(c == id)
-                    {                      
-                        add = true;
-                    }
-                }
-                if (!add)
-                {
-                    clients.Add(id, new List<string>());
-                }
-
-                clients[id].Add(DateTime.Now.ToShortTimeString() + ": " + mes);
-
-            };
-
+            ClientMessageLib cl = new ClientMessageLib(s);
 
             if (s.Start())
             {
@@ -48,7 +26,7 @@ namespace SerwerConsole
                 {
                     s.Listen();
 
-                    foreach (List<string> c in clients.Values)
+                    foreach (List<string> c in cl.GetAllClients().Values)
                     {
                         foreach (string cc in c)
                         {
@@ -58,7 +36,6 @@ namespace SerwerConsole
                     }
                 }
             }
-
 
         }
 

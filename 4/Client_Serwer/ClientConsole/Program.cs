@@ -15,13 +15,14 @@ namespace ClientConsole
         static string address = "127.0.0.1"; 
         static void Main(string[] args)
         {
-            Client c1 = new Client(port, address);
+            Client c = new Client(port, address);
+            RussianToTranslit rs = new RussianToTranslit(c);
 
             while (true)
             {
                 Console.Write("Enter message:");
                 string message = Console.ReadLine();
-                Console.WriteLine("Server answer: " + c1.sendMessage(message));
+                c.sendMessage(message);
             }
             
         }

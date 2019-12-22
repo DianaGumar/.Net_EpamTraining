@@ -32,12 +32,14 @@ namespace SerwerConsole
         byte[] data;
         int bytes;
 
-        
-
         //for event generate
         public delegate void ServerHandler(string message, int id);
         public event ServerHandler Notify;
 
+        /// <summary>
+        /// start listening clients connections
+        /// </summary>
+        /// <returns></returns>
         public bool Start()
         {
             bool sucsess = false;
@@ -59,6 +61,9 @@ namespace SerwerConsole
             return sucsess;
         }
 
+        /// <summary>
+        /// get clients message and send ansver
+        /// </summary>
         public void Listen()
         {
             try
@@ -79,11 +84,10 @@ namespace SerwerConsole
                 int id = 0;
                 Notify?.Invoke(ReParse(builder.ToString(), ref id), id);
 
-                // отправляем ответ
-                string message = "The message is delivered";
-                data = Encoding.Unicode.GetBytes(message);
+                //string message = "The message is delivered";
+                data = Encoding.Unicode.GetBytes("Server: Hi, " + ReParse(builder.ToString(), ref id));
                 handler.Send(data);
-                // закрываем сокет
+
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();
             }
@@ -95,6 +99,12 @@ namespace SerwerConsole
 
         }
 
+        /// <summary>
+        /// get id client
+        /// </summary>
+        /// <param name="mes"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string ReParse(string mes, ref int id)
         {
 

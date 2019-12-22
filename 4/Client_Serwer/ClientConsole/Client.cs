@@ -19,14 +19,14 @@ namespace ClientConsole
             
         }
 
-        public Client()
-        {
-            ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
-            
-        }
-
         int Id;
+        /// <summary>
+        /// server's port
+        /// </summary>
         public int port; 
+        /// <summary>
+        /// server's address
+        /// </summary>
         public string address;
         IPEndPoint ipPoint;
         Socket socket;
@@ -34,7 +34,14 @@ namespace ClientConsole
         byte[] data;
         StringBuilder builder;
 
-        public string sendMessage(string message)
+        public delegate void ClientHandler(string message);
+        public event ClientHandler Notify;
+
+        /// <summary>
+        /// send message to server
+        /// </summary>
+        /// <param name="message"></param>
+        public void sendMessage(string message)
         {
             builder = new StringBuilder();
             try
@@ -45,19 +52,17 @@ namespace ClientConsole
                 data = Encoding.Unicode.GetBytes(Id + " " + message);
                 socket.Send(data);
 
-                // получаем ответ
-                data = new byte[256]; // буфер для ответа              
-                int bytes = 0; // количество полученных байт
+                data = new byte[256];              
+                int bytes = 0; 
                 do
                 {
-                    //получение 
                     bytes = socket.Receive(data, data.Length, 0);
                     builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                 }
                 while (socket.Available > 0);
-                //Console.WriteLine("ответ сервера: " + builder.ToString());
+                
+                Notify?.Invoke(builder.ToString());
 
-                // закрываем сокет
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
             }
@@ -65,8 +70,6 @@ namespace ClientConsole
             {
                 Console.WriteLine(ex.Message);
             }
-
-             return builder.ToString();
 
         }
     }
