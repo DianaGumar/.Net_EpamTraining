@@ -19,7 +19,7 @@ namespace ClientConsole
             
         }
 
-        int Id;
+        public int Id;
         /// <summary>
         /// server's port
         /// </summary>

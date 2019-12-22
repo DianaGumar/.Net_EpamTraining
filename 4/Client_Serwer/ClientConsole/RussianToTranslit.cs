@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClientConsole
 {
-    class RussianToTranslit
+    public class RussianToTranslit
     {
 
         public RussianToTranslit(Client s)
@@ -23,7 +23,7 @@ namespace ClientConsole
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public string ToTranslit(string str)
+        public static string ToTranslit(string str)
         {
             char[] a = str.ToCharArray();
             StringBuilder sb = new StringBuilder();

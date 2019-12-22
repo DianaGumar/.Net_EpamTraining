@@ -39,7 +39,7 @@ namespace SerwerConsole
         Dictionary<int, List<string>> clients = new Dictionary<int, List<string>>();
 
         /// <summary>
-        /// get all messages by id one client
+        /// get all messages by key one client
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
