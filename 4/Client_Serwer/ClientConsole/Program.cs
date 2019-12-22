@@ -15,7 +15,7 @@ namespace ClientConsole
         static string address = "127.0.0.1"; 
         static void Main(string[] args)
         {
-            Client c1 = new Client(port, address, 1);
+            Client c1 = new Client(port, address);
 
             while (true)
             {

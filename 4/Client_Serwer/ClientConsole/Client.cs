@@ -10,9 +10,9 @@ namespace ClientConsole
 {
     public class Client
     {
-        public Client(int port, string address, int Id)
+        public Client(int port, string address)
         {
-            this.Id = Id;
+            Id = DateTime.Now.Minute + DateTime.Now.Second;
             this.port = port;
             this.address = address;
             ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
@@ -26,8 +26,8 @@ namespace ClientConsole
         }
 
         int Id;
-        public int port = 8005; // порт сервера
-        public string address = "127.0.0.1"; // адрес сервера
+        public int port; 
+        public string address;
         IPEndPoint ipPoint;
         Socket socket;
 
@@ -42,7 +42,7 @@ namespace ClientConsole
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 //при каждой операции отправки сообщения подключение происходит заново (реализация пула соединений?)
                 socket.Connect(ipPoint);
-                data = Encoding.Unicode.GetBytes(message);
+                data = Encoding.Unicode.GetBytes(Id + " " + message);
                 socket.Send(data);
 
                 // получаем ответ
