@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BynaryTree
 {
-    class Test : IComparable
+    class Test : ITreePart<Test>, IComparable
     {
         Test(string StudentName, int TestName, DateTime PassTestDate, int Mark)
         {
