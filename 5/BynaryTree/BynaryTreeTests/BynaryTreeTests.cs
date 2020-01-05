@@ -106,5 +106,32 @@ namespace BynaryTreeTests
 
         }
 
+
+        /// <summary>
+        /// serialize and deserialize array in tree and check correct work IEnumerator
+        /// </summary>
+        [TestMethod]
+        public void TestDeletePartTree()
+        {
+            Test t = new Test("Igor", 1, new DateTime(2019, 12, 30), 7);
+            Test t2 = new Test("Masha", 2, new DateTime(2019, 12, 31), 5);
+            Test t3 = new Test("Alekssey", 4, new DateTime(2019, 12, 29), 8);
+            Test t4 = new Test("Masha", 3, new DateTime(2019, 12, 30), 9);
+
+            BynaryTree<Test> tree = new BynaryTree<Test>();
+
+            tree.Add(t);
+            tree.Add(t2);
+            tree.Add(t3);
+            tree.Add(t4);
+
+            tree.Delete(t2);
+
+            bool expected = false, actual = tree.Find(t2);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
     }
 }
