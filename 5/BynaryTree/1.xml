@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Test>
+    <BalansFactor>0</BalansFactor>
+    <StudentName>Igor</StudentName>
+    <TestName>1</TestName>
+    <PassTestDate>2019-12-30T00:00:00</PassTestDate>
+    <Mark>7</Mark>
+  </Test>
+  <Test>
+    <BalansFactor>0</BalansFactor>
+    <StudentName>Masha</StudentName>
+    <TestName>1</TestName>
+    <PassTestDate>2019-12-31T00:00:00</PassTestDate>
+    <Mark>5</Mark>
+  </Test>
+</ArrayOfTest>

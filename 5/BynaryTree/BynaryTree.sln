@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BynaryTree", "BynaryTree\BynaryTree.csproj", "{08C5273B-6630-48E0-927E-B61EADD9A7A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BynaryTreeTests", "BynaryTreeTests\BynaryTreeTests.csproj", "{53222400-BA9A-4FC8-9137-0F9A65A8F3B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serializer", "Serializer\Serializer.csproj", "{0DCC09F3-90C4-4920-80B0-A220625FD73C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{08C5273B-6630-48E0-927E-B61EADD9A7A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08C5273B-6630-48E0-927E-B61EADD9A7A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08C5273B-6630-48E0-927E-B61EADD9A7A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53222400-BA9A-4FC8-9137-0F9A65A8F3B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53222400-BA9A-4FC8-9137-0F9A65A8F3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53222400-BA9A-4FC8-9137-0F9A65A8F3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53222400-BA9A-4FC8-9137-0F9A65A8F3B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DCC09F3-90C4-4920-80B0-A220625FD73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCC09F3-90C4-4920-80B0-A220625FD73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCC09F3-90C4-4920-80B0-A220625FD73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCC09F3-90C4-4920-80B0-A220625FD73C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
