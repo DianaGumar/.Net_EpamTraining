@@ -9,8 +9,8 @@ namespace BynaryTree
     /// <summary>
     /// jeneric class bynary tree
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    class BynaryTree <T> where T : ITreePart<T>, IComparable
+    /// <typeparam name="T"></typeparam>   
+    public class BynaryTree <T> where T : ITreePart<T>, IComparable
     {
 
         public T Root;

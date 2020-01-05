@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BynaryTree
 {
-    abstract class ITreePart<T> where T : IComparable
+    public abstract class ITreePart<T> where T : IComparable
     {
         public T RChild { get; set; }
         public T LChild { get; set; }

@@ -6,9 +6,21 @@ using System.Threading.Tasks;
 
 namespace BynaryTree
 {
-    class Test : ITreePart<Test>, IComparable
+    /// <summary>
+    /// future part of bynary tree
+    /// </summary>
+    [Serializable]
+    public class Test : ITreePart<Test>, IComparable
     {
-        Test(string StudentName, int TestName, DateTime PassTestDate, int Mark)
+        /// <summary>
+        /// standart constructor for possibility to serialisable
+        /// </summary>
+        public Test()
+        {
+
+        }
+
+        public Test(string StudentName, int TestName, DateTime PassTestDate, int Mark)
         {
             this.StudentName = StudentName;
             this.TestName = TestName;
