@@ -2,6 +2,27 @@
 <ArrayOfTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Test>
     <BalansFactor>0</BalansFactor>
+    <RChild>
+      <BalansFactor>0</BalansFactor>
+      <RChild>
+        <BalansFactor>0</BalansFactor>
+        <LChild>
+          <BalansFactor>0</BalansFactor>
+          <StudentName>Masha</StudentName>
+          <TestName>3</TestName>
+          <PassTestDate>2019-12-30T00:00:00</PassTestDate>
+          <Mark>9</Mark>
+        </LChild>
+        <StudentName>Alekssey</StudentName>
+        <TestName>4</TestName>
+        <PassTestDate>2019-12-29T00:00:00</PassTestDate>
+        <Mark>8</Mark>
+      </RChild>
+      <StudentName>Masha</StudentName>
+      <TestName>2</TestName>
+      <PassTestDate>2019-12-31T00:00:00</PassTestDate>
+      <Mark>5</Mark>
+    </RChild>
     <StudentName>Igor</StudentName>
     <TestName>1</TestName>
     <PassTestDate>2019-12-30T00:00:00</PassTestDate>
@@ -9,9 +30,44 @@
   </Test>
   <Test>
     <BalansFactor>0</BalansFactor>
+    <RChild>
+      <BalansFactor>0</BalansFactor>
+      <LChild>
+        <BalansFactor>0</BalansFactor>
+        <StudentName>Masha</StudentName>
+        <TestName>3</TestName>
+        <PassTestDate>2019-12-30T00:00:00</PassTestDate>
+        <Mark>9</Mark>
+      </LChild>
+      <StudentName>Alekssey</StudentName>
+      <TestName>4</TestName>
+      <PassTestDate>2019-12-29T00:00:00</PassTestDate>
+      <Mark>8</Mark>
+    </RChild>
     <StudentName>Masha</StudentName>
-    <TestName>1</TestName>
+    <TestName>2</TestName>
     <PassTestDate>2019-12-31T00:00:00</PassTestDate>
     <Mark>5</Mark>
+  </Test>
+  <Test>
+    <BalansFactor>0</BalansFactor>
+    <StudentName>Masha</StudentName>
+    <TestName>3</TestName>
+    <PassTestDate>2019-12-30T00:00:00</PassTestDate>
+    <Mark>9</Mark>
+  </Test>
+  <Test>
+    <BalansFactor>0</BalansFactor>
+    <LChild>
+      <BalansFactor>0</BalansFactor>
+      <StudentName>Masha</StudentName>
+      <TestName>3</TestName>
+      <PassTestDate>2019-12-30T00:00:00</PassTestDate>
+      <Mark>9</Mark>
+    </LChild>
+    <StudentName>Alekssey</StudentName>
+    <TestName>4</TestName>
+    <PassTestDate>2019-12-29T00:00:00</PassTestDate>
+    <Mark>8</Mark>
   </Test>
 </ArrayOfTest>

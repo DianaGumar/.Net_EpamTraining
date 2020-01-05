@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace BynaryTree
     /// jeneric class bynary tree
     /// </summary>
     /// <typeparam name="T"></typeparam>   
-    public class BynaryTree <T> where T : ITreePart<T>, IComparable
+    public class BynaryTree <T> : IEnumerable where T : ITreePart<T>, IComparable
     {
 
         public T Root;
@@ -66,6 +67,9 @@ namespace BynaryTree
             }
         }
 
+        /// <summary>
+        /// just drop root tree
+        /// </summary>
         public void DeleteOll()
         {
             //gc will do other work
@@ -76,7 +80,6 @@ namespace BynaryTree
         //todo реализовать для проверки алгоритма балансировки
         public bool Delete(T value)
         {
-
             return true;
         }
 
@@ -135,50 +138,50 @@ namespace BynaryTree
             return true;
         }
 
-        /// <summary>
-        /// treveling tree
-        /// </summary>
-        /// <returns></returns>
-        private List<T> Print()
+        public IEnumerator InOrderTraversal()
         {
-            return new List<T>();
-        }
-
-
-
-
-
-        /// <summary>
-        /// print to string sorted
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            List<T> list = Print();
-            StringBuilder sb = new StringBuilder();
-            foreach(T l in list)
+            if (Root != null)
             {
-                sb.Append(l.ToString());
-                sb.Append("\n");
+                // Стек для сохранения пропущенных узлов.
+                Stack stack = new Stack();
+
+                T current = Root;
+
+                bool goLeftNext = true;
+
+                stack.Push(current);
+
+                while (stack.Count > 0)
+                {
+                    if (goLeftNext)
+                    {
+                        while (current.LChild != null)
+                        {
+                            stack.Push(current);
+                            current = current.LChild;
+                        }
+                    }
+
+                    yield return current;
+
+                    if (current.RChild != null)
+                    {
+                        current = current.RChild;
+                        goLeftNext = true;
+                    }
+                    else
+                    {
+                        current = (T)stack.Pop();
+                        goLeftNext = false;
+                    }
+                }
             }
-
-            return sb.ToString();
         }
 
-        /// <summary>
-        /// setialisation to xml
-        /// </summary>
-        /// <returns></returns>
-        public bool ToXML()
-        {
-            List<T> list = Print();
 
-            return true;
-        }
-
-        public bool FromXML(string fileName)
+        public IEnumerator GetEnumerator()
         {
-            return true;
+            return InOrderTraversal();
         }
 
     }
