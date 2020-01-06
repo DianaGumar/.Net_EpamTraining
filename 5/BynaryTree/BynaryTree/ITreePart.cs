@@ -12,5 +12,7 @@ namespace BynaryTree
         public T LChild { get; set; }
 
         public int BalansFactor;
+        public int Height;
+
     }
 }

@@ -27,6 +27,7 @@ namespace BynaryTree
             if(Root == null)
             {
                 Root = t;
+                t.Height = 1;
             }
             else
             {
@@ -48,6 +49,8 @@ namespace BynaryTree
                 if(Root.LChild == null)
                 {
                     Root.LChild = t;
+                    t.Height = Root.Height + 1;
+                    Root = balance_tree(Root);
                 }
                 else
                 {
@@ -59,6 +62,8 @@ namespace BynaryTree
                 if (Root.RChild == null)
                 {
                     Root.RChild = t;
+                    t.Height = Root.Height + 1;
+                    Root = balance_tree(Root);
                 }
                 else
                 {
@@ -198,10 +203,21 @@ namespace BynaryTree
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public bool Find(T t)
+        public bool IsExsist(T t)
         {
             T parent;
             return FindWithParent(t, out parent) != null;
+        }
+
+        /// <summary>
+        /// find and return T value
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public T Find(T t)
+        {
+            T parent;
+            return FindWithParent(t, out parent);
         }
 
         /// <summary>
@@ -242,10 +258,70 @@ namespace BynaryTree
             return current;
         }
 
-        //todo алгоритм балансировки
-        public bool Balanse()
+        private T balance_tree(T current)
         {
-            return true;
+            int b_factor = balance_factor(current);
+            if (b_factor > 1)
+            {
+                if (balance_factor(current.LChild) > 0)
+                {
+                    current = RotateLL(current);
+                }
+                else
+                {
+                    current = RotateLR(current);
+                }
+            }
+            else if (b_factor < -1)
+            {
+                if (balance_factor(current.RChild) > 0)
+                {
+                    current = RotateRL(current);
+                }
+                else
+                {
+                    current = RotateRR(current);
+                }
+            }
+            return current;
+        }
+
+        private int balance_factor(T current)
+        {
+            int l = current.LChild.Height;
+            int r = current.RChild.Height;
+            int b_factor = l - r;
+            return b_factor;
+        }
+
+        private T RotateRR(T parent)
+        {
+            T pivot = parent.RChild;
+            parent.RChild = pivot.LChild;
+            pivot.LChild = parent;
+            return pivot;
+        }
+
+        private T RotateLL(T parent)
+        {
+            T pivot = parent.LChild;
+            parent.LChild = pivot.RChild;
+            pivot.RChild = parent;
+            return pivot;
+        }
+
+        private T RotateLR(T parent)
+        {
+            T pivot = parent.LChild;
+            parent.LChild = RotateRR(pivot);
+            return RotateLL(parent);
+        }
+
+        private T RotateRL(T parent)
+        {
+            T pivot = parent.RChild;
+            parent.RChild = RotateLL(pivot);
+            return RotateRR(parent);
         }
 
         public IEnumerator InOrderTraversal()
