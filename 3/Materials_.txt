@@ -10,3 +10,5 @@ Paper Circle Weight=49 Height=49 Painted=False
 Paper Triangle Weight=48 Height=48 Painted=False
 Paper Circle Weight=49 Height=49 Painted=False
 Paper Triangle Weight=48 Height=48 Painted=False
+Paper Circle Weight=49 Height=49 Painted=False
+Paper Triangle Weight=48 Height=48 Painted=False
