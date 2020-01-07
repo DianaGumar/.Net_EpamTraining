@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Export", "Export\Export.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestOrigami", "UnitTestOrigami\UnitTestOrigami.csproj", "{22AF2D49-ED27-4911-A97B-B6ADE5FCC0E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controllers", "Controllers\Controllers.csproj", "{C0211C9C-B530-4475-BA3B-A9364B83F1A5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{22AF2D49-ED27-4911-A97B-B6ADE5FCC0E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22AF2D49-ED27-4911-A97B-B6ADE5FCC0E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22AF2D49-ED27-4911-A97B-B6ADE5FCC0E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0211C9C-B530-4475-BA3B-A9364B83F1A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0211C9C-B530-4475-BA3B-A9364B83F1A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0211C9C-B530-4475-BA3B-A9364B83F1A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0211C9C-B530-4475-BA3B-A9364B83F1A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

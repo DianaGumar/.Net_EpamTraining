@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Origami.Materials;
-using Controllers;
 using Pack;
 
 namespace UnitTestOrigami
@@ -9,7 +8,7 @@ namespace UnitTestOrigami
     [TestClass]
     public class UnitTestOrigami
     {
-        Human gurl = new Human();
+        Origami.Human gurl = new Origami.Human();
 
         /// <summary>
         /// test perimeter loggic affter cut

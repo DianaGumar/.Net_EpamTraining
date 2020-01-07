@@ -46,6 +46,7 @@
     <Compile Include="Decorators\Form\CircleDecorator.cs" />
     <Compile Include="Decorators\Form\RectangleDecorator.cs" />
     <Compile Include="Decorators\Form\TriangleDecorator.cs" />
+    <Compile Include="Human.cs" />
     <Compile Include="Materials\CutFigure.cs" />
     <Compile Include="Materials\Film.cs" />
     <Compile Include="Materials\Material.cs" />

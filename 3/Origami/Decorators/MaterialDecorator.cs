@@ -12,8 +12,20 @@ namespace Origami.Decorators
 
         public Material AbstractMaterial;
 
-        public MaterialDecorator(Material AbstractMaterial) : base(AbstractMaterial.Weight, AbstractMaterial.Height)
+        //public MaterialDecorator(Material AbstractMaterial) : base(AbstractMaterial.Weight, AbstractMaterial.Height)
+        //{
+        //    this.AbstractMaterial = AbstractMaterial;
+        //    base.Type = AbstractMaterial.Type;
+
+        //}
+
+        /// <summary>
+        /// version with use copy constructor
+        /// </summary>
+        /// <param name="AbstractMaterial"></param>
+        public MaterialDecorator(Material AbstractMaterial) : base(AbstractMaterial)
         {
+
             this.AbstractMaterial = AbstractMaterial;
             base.Type = AbstractMaterial.Type;
 

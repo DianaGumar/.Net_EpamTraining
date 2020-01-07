@@ -27,6 +27,15 @@ namespace Origami.Materials
         }
 
         /// <summary>
+        /// Alternate copy constructor calls the instance constructor.
+        /// </summary>
+        /// <param name="previousMaterial"></param>
+        public Material(Material previousMaterial)
+            : this(previousMaterial.Weight, previousMaterial.Height)
+        {
+        }
+
+        /// <summary>
         /// for import
         /// </summary>
         /// <param name="Weight"></param>
@@ -40,6 +49,19 @@ namespace Origami.Materials
             this.Painted = Painted;
         }
 
+        ///// <summary>
+        ///// Copy constructor.
+        ///// </summary>
+        ///// <param name="previousPerson"></param>
+        //public Material(Material previousMaterial)
+        //{
+        //    this.Height = previousMaterial.Height;
+        //    this.Weight = previousMaterial.Weight;
+        //    this.Name = previousMaterial.Name;
+        //    this.Type = previousMaterial.Type;
+        //    this.Painted = previousMaterial.Painted;
+
+        //}
 
         public string Name;
         public MaterialType Type;

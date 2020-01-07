@@ -57,10 +57,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Controllers\Controllers.csproj">
-      <Project>{c0211c9c-b530-4475-ba3b-a9364b83f1a5}</Project>
-      <Name>Controllers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Export\Export.csproj">
       <Project>{87c25ebd-8184-4964-b0be-9efbdc1ab959}</Project>
       <Name>Export</Name>
