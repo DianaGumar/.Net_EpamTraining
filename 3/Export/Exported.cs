@@ -9,6 +9,6 @@ namespace Export
     interface Exported
     {
         List<string> Read<T>(string fileName);
-        bool Write<T>(List<T> obj, string fileName);
+        bool Write<T>(T[] obj, string fileName);
     }
 }

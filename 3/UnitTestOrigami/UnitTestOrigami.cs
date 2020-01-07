@@ -267,5 +267,13 @@ namespace UnitTestOrigami
 
         }
 
+        //[TestMethod]
+        //public void TestConstructor()
+        //{
+        //    Paper paper = new Paper(10, 10);
+        //    Paper paper2 = new Paper(paper);
+
+        //}
+
     }
 }

@@ -8,7 +8,7 @@ namespace Pack
 {
     public abstract class Packege<T, N>
     {
-        internal List<T> figures;
+        internal T[] figures;
 
         public abstract bool Export(string FileName, List<T> ts );
         public abstract bool ExportByMaterial(string FileName, N materials);

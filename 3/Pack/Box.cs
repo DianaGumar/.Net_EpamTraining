@@ -13,12 +13,22 @@ namespace Pack
     public class Box
     {
 
-        public Box()
+        public Box(int size)
         {
-            figures = new List<Material>();
+            this.Size = size;
+            figures = new Material[Size];
+            FreeSpase = Size;
         }
 
-        List<Material> figures;
+        public Box()
+        {
+            figures = new Material[Size];
+            FreeSpase = Size;
+        }
+
+        Material[] figures;
+        public int Size = 10;
+        public int FreeSpase;
 
         /// <summary>
         /// add to box if box size less than 20 and don't exist equals figures
@@ -27,7 +37,12 @@ namespace Pack
         public void Add(Material obj)
         {
 
-            if (!FindByEquals(obj) && figures.Count < 20) { figures.Add(obj); }
+            if (!FindByEquals(obj) && FreeSpase>0)
+            {
+
+                figures[Size - FreeSpase] = obj;
+                FreeSpase--;
+            }
             
         }
 
@@ -38,7 +53,7 @@ namespace Pack
         /// <returns></returns>
         public Material FindByNumber(int id)
         {
-            return figures.ElementAt(id);
+            return figures[id];
             //просмотреть по номеру
         }
 
@@ -50,9 +65,16 @@ namespace Pack
         public Material Out(int id)
         {
             Material m = figures[id];
-            figures.RemoveAt(id);
+
+            //moove all
+            for(int i = id; i< Size-FreeSpase-1; i++)
+            {
+                figures[i] = figures[i + 1];
+            }
+            //figures.RemoveAt(id);
+            FreeSpase++;
+
             return m;
-            //извлечь по номеру
         }
 
         /// <summary>
@@ -63,7 +85,6 @@ namespace Pack
         public void ChangeByNumber(int id, Material m)
         {
             figures[id] = m;
-            //заменить по номеру
         }
 
         /// <summary>
@@ -73,9 +94,9 @@ namespace Pack
         /// <returns>true or false</returns>
         public bool FindByEquals(Material obj)
         {
-            foreach(Material v in figures)
+            for (int i = 0; i < Size - FreeSpase; i++)
             {
-                if (v.Equals(obj)) { return true;  }
+                if (figures[i].Equals(obj)) { return true;  }
             }
 
             return false;
@@ -87,7 +108,7 @@ namespace Pack
         /// <returns></returns>
         public int Count()
         {
-            return figures.Count;
+            return Size - FreeSpase;
         }
 
         /// <summary>
@@ -98,9 +119,9 @@ namespace Pack
         {
             double value = 0;
 
-            foreach(Material m in figures)
+            for(int i=0; i< Size - FreeSpase; i++)
             {
-                value += m.GetPerimeter();
+                value += figures[i].GetPerimeter();
             }
 
             return value;
@@ -114,9 +135,9 @@ namespace Pack
         {
             double value = 0;
 
-            foreach (Material m in figures)
+            for(int i = 0; i < Size-FreeSpase; i++)
             {
-                value += m.GetArea();
+                value += figures[i].GetArea();
             }
 
             return value;
@@ -131,17 +152,13 @@ namespace Pack
         {
             List<Material> ms = new List<Material>();
 
-            foreach(Material m in figures)
+            for(int i = 0; i< Size - FreeSpase; i++)
             {
-                if (m.Name.Equals(str))
+                if (figures[i].Name.Equals(str))
                 {
-                    ms.Add(m);
+                    
+                    ms.Add(Out(i));
                 }
-            }
-
-            foreach (Material m in ms)
-            {
-                figures.Remove(m);
             }
 
             return ms;
@@ -156,17 +173,12 @@ namespace Pack
         {
             List<Material> ms = new List<Material>();
 
-            foreach (Material m in figures)
+            for (int i = 0; i < Size - FreeSpase+1; i++)
             {
-                if (m.Type == materialType)
+                if (figures[i].Type == materialType)
                 {
-                    ms.Add(m);
+                    ms.Add(Out(i));
                 }
-            }
-
-            foreach (Material m in ms)
-            {
-                figures.Remove(m);
             }
 
             return ms;
@@ -180,7 +192,7 @@ namespace Pack
         /// <param name="xml"></param>
         /// <param name="txt"></param>
         /// <returns></returns>
-        private bool Export(string FileName, List<Material> ms, bool xml, bool txt)
+        private bool Export(string FileName, Material[] ms, bool xml, bool txt)
         {
             bool ansver = false;
 
@@ -218,16 +230,41 @@ namespace Pack
         /// <returns>export was successful or not</returns>
         public bool ExportByMaterial(string FileName, MaterialType materials, bool xml, bool txt)
         {
-            List<Material> ms = new List<Material>();
+            
 
-            if(materials == MaterialType.All) { return Export(FileName, figures, xml, txt); }
+            if(materials == MaterialType.All)
+            {
+
+                Material[] ms = new Material[Size-FreeSpase];
+
+                for (int i = 0; i < Size - FreeSpase; i++)
+                {
+                    ms[i] = figures[i];
+                }
+
+                return Export(FileName, ms, xml, txt);
+            }
             else
             {
-                foreach (Material m in figures)
+                int size = 0;
+                for (int i = 0; i < Size - FreeSpase; i++)
                 {
-                    if (m.Type == materials)
+                    if (figures[i].Type == materials)
                     {
-                        ms.Add(m);
+                        size++;
+                        //ms.Add(m);
+                    }
+                }
+
+                Material[] ms = new Material[size];
+
+                for(int i =0, j = 0; i < Size - FreeSpase; i++)
+                {
+                    if (figures[i].Type == materials)
+                    {
+                        ms[j] = figures[i];
+                        j++;
+                        //ms.Add(m);
                     }
                 }
 

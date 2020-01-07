@@ -38,7 +38,7 @@ namespace Export
             return t;
         }
 
-        public bool Write<T>(List<T> obj, string fileName)
+        public bool Write<T>(T[] obj, string fileName)
         {
             try
             {

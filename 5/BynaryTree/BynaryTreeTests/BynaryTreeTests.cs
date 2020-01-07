@@ -157,5 +157,34 @@ namespace BynaryTreeTests
 
         }
 
+
+        /// <summary>
+        /// check balans work
+        /// </summary>
+        [TestMethod]
+        public void TestBalans()
+        {
+            Test t = new Test("Igor", 8, new DateTime(2019, 12, 30), 7);
+            Test t2 = new Test("Masha", 4, new DateTime(2019, 12, 31), 5);
+            Test t3 = new Test("Alekssey", 10, new DateTime(2019, 12, 29), 8);
+            Test t4 = new Test("Masha", 2, new DateTime(2019, 12, 30), 9);
+            Test t5 = new Test("Ilia", 6, new DateTime(2019, 11, 30), 4);
+            Test t6 = new Test("Hastia", 3, new DateTime(2019, 12, 28), 5);
+
+            BynaryTree<Test> tree = new BynaryTree<Test>();
+
+            tree.Add(t);
+            tree.Add(t2);
+            tree.Add(t3);
+            tree.Add(t4);
+            tree.Add(t5);
+            tree.Add(t6);
+
+            int expected = 3, actual = tree.Find(t6).Height;
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
     }
 }

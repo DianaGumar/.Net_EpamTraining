@@ -44,7 +44,7 @@ namespace Export
             return t;
         }
 
-        public bool Write<T>(List<T> obj, string fileName)
+        public bool Write<T>(T[] obj, string fileName)
         {
             try
             {
@@ -53,10 +53,10 @@ namespace Export
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("objects");
-                    foreach (T t in obj)
-                    {
+                    for(int i = 0; i < obj.Length; i++)
+                    { 
                         writer.WriteStartElement("object");
-                        writer.WriteString(t.ToString());
+                        writer.WriteString(obj[i].ToString());
                         writer.WriteEndElement();
                     }
                     writer.WriteEndElement();

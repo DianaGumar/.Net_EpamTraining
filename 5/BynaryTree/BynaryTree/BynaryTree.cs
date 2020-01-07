@@ -50,7 +50,7 @@ namespace BynaryTree
                 {
                     Root.LChild = t;
                     t.Height = Root.Height + 1;
-                    Root = balance_tree(Root);
+                    //Root = balance_tree(Root);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace BynaryTree
                 {
                     Root.RChild = t;
                     t.Height = Root.Height + 1;
-                    Root = balance_tree(Root);
+                    //Root = balance_tree(Root);
                 }
                 else
                 {
@@ -286,6 +286,11 @@ namespace BynaryTree
             return current;
         }
 
+        /// <summary>
+        /// find balanse factor
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns></returns>
         private int balance_factor(T current)
         {
             int l = current.LChild.Height;
