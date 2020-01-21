@@ -33,6 +33,7 @@ namespace StudentsResult
             IdTeam = idTeam;
         }
 
+        //must be indenticle with data base fields names
         public int Id;
         public string Name;
         public int IsMail;

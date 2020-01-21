@@ -4,27 +4,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Reflection;
 
 namespace StudentsResult.DataBase
 {
-    public class Controller<T> : AbstractController<Object, int>
+    public class Controller<T> : AbstractController<T, int> where T : class
     {
         public Controller(string DBName, string login, string password)
         {
-            this.DBName = DBName;
-            this.login = login;
-            this.password = password;
+            MySqlConnection connection = GetConnection(DBName, login, password);
+
+            Name = typeof(T).FullName;
         }
 
-        private readonly string sql;
-        private readonly string DBName;
-        private readonly string login;
-        private readonly string password;
+        MySqlConnection connection;
 
-        public override List<Object[]> Reed()
+        private string Name;
+        List<string> Entrails;
+
+        /// <summary>
+        /// reflection for jeneric class
+        /// </summary>
+        /// <returns></returns>
+        private List<string> GetEntrails()
         {
-            List<Object[]> entity = new List<Object[]>();
-            MySqlConnection connection = GetConnection(DBName, login, password);
+            List<string> strs = new List<string>();
+
+            Type type = typeof(T);
+
+            var Entrails = type.GetFields();
+
+            foreach(FieldInfo fieldsInfo in Entrails)
+            {
+                strs.Add(fieldsInfo.Name);
+            }
+
+            return strs;
+        }   
+
+        public List<T[]> Reed(out string[] columnsNames)
+        {
+            List<T[]> entity = new List<T[]>();
+            columnsNames = null;
+
+
+
+            string sql = "select * from Students";
+
             try
             {
                 connection.Open();
@@ -34,18 +60,18 @@ namespace StudentsResult.DataBase
                 if (reader.HasRows)
                 {
                     //take columns names
-                    Object[] names = new Object[reader.FieldCount];
+                    columnsNames = new string[reader.FieldCount];
 
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        names[i] = reader.GetName(i);
+                        columnsNames[i] = reader.GetName(i);
                     }
-                    entity.Add(names);
+                    //entity.Add(names);
 
                     //take data
                     while (reader.Read())
                     {
-                        Object[] inside = new Object[reader.FieldCount];
+                        T[] inside = new T[reader.FieldCount];
                         reader.GetValues(inside);
                         entity.Add(inside);
 
@@ -62,16 +88,15 @@ namespace StudentsResult.DataBase
             }
             finally { connection.Close(); }
 
-            //List<T[]> ent = T.Parse(entity);
             return entity;
         }
 
-        public List<Object> Reed(int id)
+        public override T[] Reed(int id)
         {
-            return new List<object>();
+            return new T[2]; 
         }
 
-        public override int Create(Object obj)
+        public override int Create(T obj)
         {
             throw new NotImplementedException();
         }
@@ -81,7 +106,7 @@ namespace StudentsResult.DataBase
             throw new NotImplementedException();
         }
 
-        public override int Update(Object obj)
+        public override int Update(T obj)
         {
             throw new NotImplementedException();
         }

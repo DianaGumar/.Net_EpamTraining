@@ -11,7 +11,7 @@ namespace StudentsResult.DataBase
     public abstract class AbstractController<E, K>
     {
 
-        public abstract List<E[]> Reed();
+        public abstract E[] Reed(K id);
 
         public abstract int Create(E obj);
 
