@@ -9,6 +9,11 @@ namespace StudentsResult
     public class Student
     {
         /// <summary>
+        /// for reflection
+        /// </summary>
+        public Student() { }
+
+        /// <summary>
         /// for data base
         /// </summary>
         /// <param name="id"></param>
@@ -16,29 +21,33 @@ namespace StudentsResult
         /// <param name="isMail"></param>
         /// <param name="date"></param>
         /// <param name="idTeam"></param>
-        Student(int id, string name, int isMail, DateTime date, int idTeam)
+        public Student(int id, string name, int isMail, DateTime date, int idTeam)
         {
-            Id = id;
+            StudentsID = id;
             Name = name;
-            IsMail = isMail;
-            Date = date;
-            IdTeam = idTeam;
+            IsMale = isMail;
+            Date = date; //.ToString("yyyy-MM-dd");
+            TeamID = idTeam;
         }
 
-        Student(string name, int isMail, DateTime date, int idTeam)
+        public Student(string name, int isMail, DateTime date, int idTeam)
         {
             Name = name;
-            IsMail = isMail;
-            Date = date;
-            IdTeam = idTeam;
+            IsMale = isMail;
+            Date = date; //.ToString("yyyy-MM-dd");
+            TeamID = idTeam;
         }
 
         //must be indenticle with data base fields names
-        public int Id;
+        public int StudentsID;
         public string Name;
-        public int IsMail;
+        public int IsMale;
         public DateTime Date;
-        public int IdTeam;
+        public int TeamID;
 
+        public object[] ToObject()
+        {
+            return new object[] { StudentsID, Name, IsMale, Date, TeamID };
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace StudentsResult.DataBase
     public abstract class AbstractController<E, K>
     {
 
-        public abstract E[] Reed(K id);
+        public abstract E Reed(K id);
 
         public abstract int Create(E obj);
 
@@ -22,7 +22,7 @@ namespace StudentsResult.DataBase
         public static MySqlConnection GetConnection(string DBName, string login, string password)
         {
 
-            string str = "Server=localhost;Database=" + DBName + ";Uid=" + login + ";Pwd=" + password;
+            string str = "Server=localhost;Database=" + DBName + ";Uid=" + login + ";Pwd=" + password + ";";
 
             MySqlConnection conn = new MySqlConnection(str);
 
