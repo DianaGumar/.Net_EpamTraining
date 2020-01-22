@@ -27,6 +27,9 @@ namespace StudentsResult
             Name = name;
             IsMale = isMail;
             Date = date; //.ToString("yyyy-MM-dd");
+
+            //Date.ParseExact(dateFormat, "yyyy-MM-dd", null);
+
             TeamID = idTeam;
         }
 

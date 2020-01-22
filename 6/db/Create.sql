@@ -1,4 +1,4 @@
--- create database StudentsResults;
+create database StudentsResults;
 use StudentsResults;
 
 
@@ -54,7 +54,8 @@ values  ("OOP", 1 ),
 insert into Teams(Name)
 values  ("ITI"),
 		("ITP");
-        
+         
+      
 insert into Students(Name, IsMale, Date, TeamID)
 values  ("Igor", 1, '1998-05-6', 1),
 		("Vania", 1, '1999-11-23', 1),
@@ -70,5 +71,5 @@ values  (5, 1, 1, '2020-01-14'),
 		(5, 2, 3, '2019-12-25'),
 		(5, 2, 1, '2020-01-08'),
 		(5, 1, 4, '2020-01-06'),
-		(3, 1, 5, '2018-12-20'),
+		(3, 1, 5, '2018-12-20'), 
 		(3, 2, 5, '2018-12-22');

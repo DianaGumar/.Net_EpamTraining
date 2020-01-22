@@ -53,6 +53,46 @@ namespace UnitTestStudentsResults
         }
 
         [TestMethod]
+        public void TestUpdate()
+        {
+            string DBName = "studentsresults";
+            string Login = "root";
+            string Password = "1111";
+
+            Student st = new Student(5, "Olga", 0, new DateTime(2000, 3, 1), 1);
+
+            Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
+
+            int count = controller.Update(st);
+
+            bool actual = false, expected = true;
+            if (count > 0 ) { actual = true; }
+
+            Assert.AreEqual(actual, expected);
+
+        }
+
+        [TestMethod]
+        public void TestCreate()
+        {
+            string DBName = "studentsresults";
+            string Login = "root";
+            string Password = "1111";
+
+            Student st = new Student("Gordey", 1, new DateTime(2000, 3, 1), 1);
+
+            Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
+
+            int count = controller.Create(st);
+
+            bool actual = false, expected = true;
+            if (count > 0) { actual = true; }
+
+            Assert.AreEqual(actual, expected);
+
+        }
+
+        [TestMethod]
         public void TestExport()
         {
             string DBName = "studentsresults";
