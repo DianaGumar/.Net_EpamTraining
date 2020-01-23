@@ -79,18 +79,23 @@ namespace UnitTestStudentsResults
             string Login = "root";
             string Password = "1111";
 
-            Student st = new Student("Gordey", 1, new DateTime(2000, 3, 1), 1);
+            Student st = new Student("Diana", 0, new DateTime(2000, 5, 3), 1);
+            Exam ex = new Exam("GIM", 0);
 
-            Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
+            Controller<Student> controllerStudent = new Controller<Student>(DBName, Login, Password);
+            Controller<Exam> controllerExam = new Controller<Exam>(DBName, Login, Password);
 
-            int count = controller.Create(st);
+            int count = controllerStudent.Create(st);
+            count += controllerExam.Create(ex);
+
 
             bool actual = false, expected = true;
-            if (count > 0) { actual = true; }
+            if (count > 1) { actual = true; }
 
             Assert.AreEqual(actual, expected);
 
         }
+
 
         [TestMethod]
         public void TestExport()

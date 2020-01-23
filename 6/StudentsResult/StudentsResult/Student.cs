@@ -48,6 +48,10 @@ namespace StudentsResult
         public DateTime Date;
         public int TeamID;
 
+        /// <summary>
+        /// for export
+        /// </summary>
+        /// <returns></returns>
         public object[] ToObject()
         {
             return new object[] { StudentsID, Name, IsMale, Date, TeamID };

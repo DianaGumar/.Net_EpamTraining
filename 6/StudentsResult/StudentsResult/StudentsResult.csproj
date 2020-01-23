@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="DataBase\AbstractController.cs" />
     <Compile Include="DataBase\Controller.cs" />
+    <Compile Include="Exam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student.cs" />
   </ItemGroup>
