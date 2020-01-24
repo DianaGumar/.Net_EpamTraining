@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentsResult
+namespace StudentsResult.Objects
 {
-    public class Exam
+    public class Exam : IExported
     {
         public Exam() { }
 
@@ -25,7 +25,7 @@ namespace StudentsResult
 
         public int ExamID;
         public string Name;
-        public int IsExam;
+        public int? IsExam;
 
         /// <summary>
         /// for export

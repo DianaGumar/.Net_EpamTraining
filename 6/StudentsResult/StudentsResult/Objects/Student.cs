@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentsResult
+namespace StudentsResult.Objects
 {
-    public class Student
+    public class Student : IExported
     {
         /// <summary>
         /// for reflection

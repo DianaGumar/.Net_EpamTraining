@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Export;
 using StudentsResult.DataBase;
 using System.Collections.Generic;
-using StudentsResult;
+using StudentsResult.Objects;
 
 namespace UnitTestStudentsResults
 {
