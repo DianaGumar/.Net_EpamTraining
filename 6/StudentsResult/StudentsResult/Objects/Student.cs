@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StudentsResult.Objects
 {
-    public class Student : IExported
+    public class Student :  IExported
     {
         /// <summary>
         /// for reflection

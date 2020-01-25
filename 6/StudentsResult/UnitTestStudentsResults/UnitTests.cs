@@ -4,6 +4,8 @@ using Export;
 using StudentsResult.DataBase;
 using System.Collections.Generic;
 using StudentsResult.Objects;
+using StudentsResult.DataBase.Factory;
+using StudentsResult.DataBase.ConcretControllers;
 
 namespace UnitTestStudentsResults
 {
@@ -96,7 +98,6 @@ namespace UnitTestStudentsResults
 
         }
 
-
         [TestMethod]
         public void TestExport()
         {
@@ -142,6 +143,26 @@ namespace UnitTestStudentsResults
 
             Assert.AreEqual(actual, expected);
         }
+
+        [TestMethod]
+        public void TestFactory()
+        {
+            string DBName = "studentsresults";
+            string Login = "root";
+            string Password = "1111";
+
+            FactoryControllers fc = new FactoryControllers(DBName, Login, Password);
+
+            ExamController ExamC = (ExamController)fc.CreateController(ControllersFormat.Exam);
+         
+            int count = ExamC.Create(new Exam("Fisic", 1));
+
+            bool actual = false, expected = true;
+            if (count > 0) { actual = true; }
+
+            Assert.AreEqual(actual, expected);
+        }
+
 
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace StudentsResult.Objects
 {
     public class Exam : IExported
+
     {
         public Exam() { }
 
