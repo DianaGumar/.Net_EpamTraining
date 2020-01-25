@@ -67,7 +67,7 @@ namespace Export
             {
                 package = new ExcelPackage(memStream);
 
-                FileInfo fi = new FileInfo(Path + @"\" + FileName + $"_{DateTime.Now.ToString("yyyy.MM.dd")}.xlsx");
+                FileInfo fi = new FileInfo(Path + @"\" + $"{DateTime.Now.ToString("yyyy.MM.dd")}" + FileName + ".xlsx");
                 //@"E:\Epam\.Net_EpamTraining\6\1.xlsx"
                 package.SaveAs(fi);
 

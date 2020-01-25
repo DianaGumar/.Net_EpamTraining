@@ -128,7 +128,7 @@ namespace StudentsResult.DataBase
 
                     }
 
-                    reader.NextResult();
+                    //reader.NextResult();
                 }
                 reader.Close();
 

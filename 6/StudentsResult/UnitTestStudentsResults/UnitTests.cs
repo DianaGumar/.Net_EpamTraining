@@ -7,11 +7,10 @@ using StudentsResult.Objects;
 using StudentsResult.DataBase.Factory;
 using StudentsResult.DataBase.ConcretControllers;
 
-using System.Data;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Microsoft.Office.Interop.Excel;
 using OfficeOpenXml;
+
+using Statistic;
 
 namespace UnitTestStudentsResults
 {
@@ -140,15 +139,11 @@ namespace UnitTestStudentsResults
         [TestMethod]
         public void TestFactory()
         {
-            string DBName = "studentsresults";
-            string Login = "root";
-            string Password = "1111";
-
-            FactoryControllers fc = new FactoryControllers(DBName, Login, Password);
+            FactoryControllers fc = new FactoryControllers();
 
             ExamController ExamC = (ExamController)fc.CreateController(ControllersFormat.Exam);
          
-            int count = ExamC.Create(new Exam("Fisic", 1));
+            int count = ExamC.Create(new Exam("History", 0));
 
             bool actual = false, expected = true;
             if (count > 0) { actual = true; }
@@ -200,6 +195,20 @@ namespace UnitTestStudentsResults
 
             Assert.AreEqual(actual, expected);
         }
+
+
+        [TestMethod]
+        public void TestExportExpelledStudents()
+        {
+            StatisticSession ss = new StatisticSession();
+
+            bool actual = ss.ExportExpelledStudents(5, @"E:\Epam\.Net_EpamTraining\6");
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+
+        }
+
 
 
     }

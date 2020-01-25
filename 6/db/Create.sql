@@ -21,7 +21,7 @@ create table Exams
 (
 	ExamID int primary key auto_increment not null,
     Name nvarchar(50) not null,
-    IsExam int
+    IsExam int not null
 );
 
 create table Schedules
@@ -38,7 +38,7 @@ create table Results
 	ResultsID int primary key auto_increment not null,
     StudentsID int not null,
     ScheduleID int not null,
-    Mark int
+    Mark int not null
 );
 
 
@@ -108,7 +108,7 @@ values (1, 1, 9),
 	   (3, 10, 10),
 	   (4, 4, 4),
 	   (4, 5, 3),
-	   (4, 9, null),
+	   (4, 9, 1),
 	   (4, 10, 5);
 
 

@@ -67,12 +67,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Export\Export.csproj">
       <Project>{b1a624e4-9a61-4bd1-838b-809a53a12728}</Project>
       <Name>Export</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Statistic\Statistic.csproj">
+      <Project>{c6fa3078-8a6f-4e06-a572-bf2de8952d1a}</Project>
+      <Name>Statistic</Name>
     </ProjectReference>
     <ProjectReference Include="..\StudentsResult\StudentsResult.csproj">
       <Project>{b2b88e4e-76ec-4425-855e-cf1fb916c70d}</Project>

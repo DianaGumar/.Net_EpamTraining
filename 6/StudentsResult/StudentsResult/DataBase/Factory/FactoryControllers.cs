@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StudentsResult.Objects;
 using StudentsResult.DataBase.ConcretControllers;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace StudentsResult.DataBase.Factory
 {
@@ -18,11 +15,13 @@ namespace StudentsResult.DataBase.Factory
     /// </summary>
     public class FactoryControllers
     {
-        public FactoryControllers(string dbName, string login, string password)
+        public FactoryControllers()
         {
-            DbName = dbName;
-            Login = login;
-            Password = password;
+
+            DbName = ConfigurationManager.AppSettings["DBName"];
+            Login = ConfigurationManager.AppSettings["Login"];
+            Password = ConfigurationManager.AppSettings["Password"];
+
         }
 
         string DbName;

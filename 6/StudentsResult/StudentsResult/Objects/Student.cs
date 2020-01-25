@@ -56,5 +56,24 @@ namespace StudentsResult.Objects
         {
             return new object[] { StudentsID, Name, IsMale, Date, TeamID };
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            Student student = obj as Student;
+            if (student as Student == null)
+                return false;
+
+            return student.StudentsID == this.StudentsID;
+
+        }
+
+        public override int GetHashCode()
+        {
+            return StudentsID;
+
+        }
+
     }
 }
