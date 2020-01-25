@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using OfficeOpenXml;
@@ -55,5 +56,26 @@ namespace Export
 
             return fileContents;
         }
+
+        public static bool Export<T>(List<T[]> data, string Path, string FileName)
+        {
+            byte[] Buffer = Export(data);
+            ExcelPackage package;
+
+            bool Exported = false;
+            using (MemoryStream memStream = new MemoryStream(Buffer))
+            {
+                package = new ExcelPackage(memStream);
+
+                FileInfo fi = new FileInfo(Path + @"\" + FileName + $"_{DateTime.Now.ToString("yyyy.MM.dd")}.xlsx");
+                //@"E:\Epam\.Net_EpamTraining\6\1.xlsx"
+                package.SaveAs(fi);
+
+                Exported = true;
+            }
+            
+            return Exported;
+        }
+
     }
 }
