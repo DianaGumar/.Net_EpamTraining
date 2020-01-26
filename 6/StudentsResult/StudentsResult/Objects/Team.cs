@@ -28,6 +28,22 @@ namespace StudentsResult.Objects
             return new object[] { TeamID, Name };
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            Team t = obj as Team;
+            if (t as Team == null)
+                return false;
 
+            return t.TeamID == this.TeamID;
+
+        }
+
+        public override int GetHashCode()
+        {
+            return TeamID;
+
+        }
     }
 }

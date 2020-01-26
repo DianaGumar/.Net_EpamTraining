@@ -196,7 +196,6 @@ namespace UnitTestStudentsResults
             Assert.AreEqual(actual, expected);
         }
 
-
         [TestMethod]
         public void TestExportExpelledStudents()
         {
@@ -209,7 +208,29 @@ namespace UnitTestStudentsResults
 
         }
 
+        [TestMethod]
+        public void TestExportSessionReSult()
+        {
+            StatisticSession ss = new StatisticSession();
 
+            bool actual = ss.ExportSessionReSult(5, @"E:\Epam\.Net_EpamTraining\6");
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+
+        }
+
+        [TestMethod]
+        public void TestExportMiddleGroupResults()
+        {
+            StatisticSession ss = new StatisticSession();
+
+            bool actual = ss.ExportMiddleGroupResults(@"E:\Epam\.Net_EpamTraining\6");
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+
+        }
 
     }
 }
