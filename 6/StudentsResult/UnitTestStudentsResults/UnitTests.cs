@@ -7,9 +7,6 @@ using StudentsResult.Objects;
 using StudentsResult.DataBase.Factory;
 using StudentsResult.DataBase.ConcretControllers;
 
-using System.IO;
-using OfficeOpenXml;
-
 using Statistic;
 using System.Linq;
 
@@ -152,50 +149,50 @@ namespace UnitTestStudentsResults
             Assert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
-        public void TestExportToFile()
-        {
-            string DBName = "studentsresults";
-            string Login = "root";
-            string Password = "1111";
+        //[TestMethod]
+        //public void TestExportToFile()
+        //{
+        //    string DBName = "studentsresults";
+        //    string Login = "root";
+        //    string Password = "1111";
 
-            Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
+        //    Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
-            string[] columnsName;
+        //    string[] columnsName;
 
-            List<Student> datas = controller.Reed(out columnsName);
+        //    List<Student> datas = controller.Reed(out columnsName);
 
 
-            //---------------EXPORT
+        //    //---------------EXPORT
 
-            List<Object[]> objs = new List<object[]>();
-            objs.Add(columnsName);
+        //    List<Object[]> objs = new List<object[]>();
+        //    objs.Add(columnsName);
 
-            foreach (Student s in datas)
-            {
-                objs.Add(s.ToObject());
-            }
+        //    foreach (Student s in datas)
+        //    {
+        //        objs.Add(s.ToObject());
+        //    }
 
-            //принимает первым значением листа имена таблицы, остальными- значения
-            byte[] Buffer = ExcelExport.Export(objs);
+        //    //принимает первым значением листа имена таблицы, остальными- значения
+        //    byte[] Buffer = ExcelExport.Export(objs);
 
-            ExcelPackage package;
-            using (MemoryStream memStream = new MemoryStream(Buffer))
-            {
-                package = new ExcelPackage(memStream);
-            }
+        //    ExcelPackage package;
+        //    using (MemoryStream memStream = new MemoryStream(Buffer))
+        //    {
+        //        package = new ExcelPackage(memStream);
+        //    }
 
-            FileInfo fi = new FileInfo(@"E:\Epam\.Net_EpamTraining\6\1.xlsx");
-            package.SaveAs(fi);
+        //    FileInfo fi = new FileInfo(@"E:\Epam\.Net_EpamTraining\6\1.xlsx");
+        //    package.SaveAs(fi);
 
-            bool actual = false, expected = true;
-            if(package != null)
-            {
-                actual = true;
-            }
+        //    bool actual = false, expected = true;
+        //    if(package != null)
+        //    {
+        //        actual = true;
+        //    }
 
-            Assert.AreEqual(actual, expected);
-        }
+        //    Assert.AreEqual(actual, expected);
+        //}
 
         [TestMethod]
         public void TestExportExpelledStudents()
