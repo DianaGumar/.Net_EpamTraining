@@ -11,6 +11,7 @@ using System.IO;
 using OfficeOpenXml;
 
 using Statistic;
+using System.Linq;
 
 namespace UnitTestStudentsResults
 {
@@ -199,10 +200,15 @@ namespace UnitTestStudentsResults
         [TestMethod]
         public void TestExportExpelledStudents()
         {
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
+            int sessionNumber = 5;
             StatisticSession ss = new StatisticSession();
 
-            bool actual = ss.ExportExpelledStudents(5, @"E:\Epam\.Net_EpamTraining\6");
+            List<object[]> obj = ss.GetExpelledStudents(sessionNumber);
+
             bool expected = true;
+            bool actual = ExcelExport.Export(obj, Path, 
+                "ExpelledStudents_sessionNumber=" + sessionNumber);
 
             Assert.AreEqual(actual, expected);
 
@@ -211,9 +217,25 @@ namespace UnitTestStudentsResults
         [TestMethod]
         public void TestExportSessionReSult()
         {
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
+            int sessionNumber = 5;
             StatisticSession ss = new StatisticSession();
 
-            bool actual = ss.ExportSessionReSult(5, @"E:\Epam\.Net_EpamTraining\6");
+            List<object[]>[] objss = ss.GetSessionReSult(sessionNumber);
+
+            int result = 0;
+            for (int i = 0; i < objss.Count(); i++)
+            {
+                //export data
+                result += ExcelExport.Export(objss[i],
+                    Path,
+                    @"Exported_Session_" + sessionNumber +
+                    "_results_" + objss[i][1][0].ToString())
+                ? 1 : 0;
+            }
+
+            bool actual = result > 0 ? true : false;
+
             bool expected = true;
 
             Assert.AreEqual(actual, expected);
@@ -223,9 +245,12 @@ namespace UnitTestStudentsResults
         [TestMethod]
         public void TestExportMiddleGroupResults()
         {
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
             StatisticSession ss = new StatisticSession();
+            List<object[]> obj = ss.GetMiddleGroupResults();
 
-            bool actual = ss.ExportMiddleGroupResults(@"E:\Epam\.Net_EpamTraining\6");
+            bool actual = ExcelExport.Export(obj, Path, "Middle_groups_results");
+
             bool expected = true;
 
             Assert.AreEqual(actual, expected);

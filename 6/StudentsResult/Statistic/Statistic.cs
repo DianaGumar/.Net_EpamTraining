@@ -47,7 +47,7 @@ namespace Statistic
 
         //todo change loggic with one necessary sql query
 
-        public bool ExportExpelledStudents(int SessionNumber, string Path)
+        public List<object[]> GetExpelledStudents(int SessionNumber)
         {
 
             //find inadmissible marks
@@ -89,9 +89,6 @@ namespace Statistic
                 teams.Add(teamController.Reed(s.TeamID));
             }
 
-
-            //---------------EXPORT
-
             List<object[]> objs = new List<object[]>();
             objs.Add(new object[] {"Team", "ExpelledStudents" });
 
@@ -100,12 +97,11 @@ namespace Statistic
                 objs.Add(new object[] { teams[i].Name, ExpelledstudentsMod[i].Name});
             }
 
-            //принимает первым значением листа имена таблицы, остальными- значения
-            return ExcelExport.Export(objs, Path, "ExpelledStudents_sessionNumber=" + SessionNumber);
+            return objs;            
 
         }
 
-        public bool ExportSessionReSult(int SessionNumber, string Path)
+        public List<object[]>[] GetSessionReSult(int SessionNumber)
         {
             if (results == null)
             {
@@ -171,25 +167,10 @@ namespace Statistic
 
             }
 
-
-            //для каждой группы своя таблица
-            //должно быть соответствие названий групп тем названиям,
-            //что находятся в i-ом objss
-            int result = 0;          
-            for(int i = 0; i < objss.Count(); i++)
-            {
-                //export data
-                result += ExcelExport.Export(objss[i], 
-                    Path,
-                    @"Exported_Session_"+ SessionNumber +"_results_" + objss[i][1][0].ToString())
-                ? 1 : 0;
-            }
-
-            return result > 0 ? true : false;
-            
+            return objss;
         }
 
-        public bool ExportMiddleGroupResults(string Path)
+        public List<object[]> GetMiddleGroupResults()
         {
 
             if (results == null)
@@ -279,12 +260,7 @@ namespace Statistic
                
             }
 
-
-            //---------------EXPORT
-
-            ExcelExport.Export(result, Path, "Middle_groups_results");
-
-            return true;
+            return result;
         }
 
 
