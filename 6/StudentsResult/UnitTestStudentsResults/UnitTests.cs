@@ -257,5 +257,36 @@ namespace UnitTestStudentsResults
 
         }
 
+        [TestMethod]
+        public void TestSessionReSult_Sort()
+        {
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
+            int sessionNumber = 5;
+            StatisticSession ss = new StatisticSession();
+
+            List<object[]>[] objss = ss.GetSessionReSult(sessionNumber);
+
+            objss[0] = Sort.sortBy(3, false, objss[0]);
+
+            int result = 0;
+            for (int i = 0; i < objss.Count(); i++)
+            {
+                //export data
+                result += ExcelExport.Export(objss[i],
+                    Path,
+                    @"Exported_Session_" + sessionNumber +
+                    "_results_" + objss[i][1][0].ToString())
+                ? 1 : 0;
+            }
+
+            bool actual = result > 0 ? true : false;
+
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+
+        }
+
+
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using StudentsResult.Objects;
 using StudentsResult.DataBase.Factory;
 using StudentsResult.DataBase.ConcretControllers;
-using Export;
 using System.Linq;
 
 namespace Statistic
