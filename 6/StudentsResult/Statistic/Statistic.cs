@@ -28,6 +28,9 @@ namespace Statistic
 
             examController
                  = (ExamController)fc.CreateController(ControllersFormat.Exam);
+
+            teacherController
+                 = (TeacherController)fc.CreateController(ControllersFormat.Teacher);
         }
 
         FactoryControllers fc;
@@ -36,13 +39,18 @@ namespace Statistic
         ScheduleController scheduleController;
         TeamController teamController;
         ExamController examController;
+        TeacherController teacherController;
 
         List<Result> results;
         List<Schedule> schedules;
         List<Exam> exams;
         List<Student> students;
         List<Team> teams;
+        List<Teacher> teachers;
+
         string[] ColumnsNamesResult;
+        string[] ColumnsNamesTeachers;
+
 
         //todo change loggic with one necessary sql query
 
@@ -262,6 +270,177 @@ namespace Statistic
             return result;
         }
 
+        public List<object[]> GetPositionsMiddleMarks(int SessionNumber)
+        {
+
+            if (results == null)
+            {
+                results = resultController.Reed(out ColumnsNamesResult);
+            }
+
+            //find right session
+            List<Schedule> schedules = GetSession(SessionNumber, results);
+
+            //modyfi results for ryght session
+            List<Result> modifyResults =
+                ModyfyResults(results, schedules).Distinct().ToList();
+
+            List<Team> teams = new List<Team>();
+            foreach (Schedule s in schedules)
+            {
+                teams.Add(teamController.Reed(s.TeamID));
+            }
+
+            List<object[]> ob = new List<object[]>();
+
+            List<int> sessions = new List<int>();
+
+            for (int i = 0; i < schedules.Count(); i++)
+            {
+                ob.Add(new object[] { schedules[i].SessionNumber, teams[i].Profession, modifyResults[i].Mark });
+
+                sessions.Add(schedules[i].SessionNumber);
+
+            }
+
+            List<Team> teamsMod = teams.Distinct().ToList<Team>();
+
+            //find original values in seccion numbers
+            List<int> sessionsMod = sessions.Distinct().ToList<int>();
+
+            List<object[]>[] objss = new List<object[]>[sessionsMod.Count()];
+
+            //finding min max middle
+
+            //segmentation by session numbers
+            for (int i = 0; i < sessionsMod.Count(); i++)
+            {
+                List<object[]> objs = new List<object[]>();
+
+                foreach (object[] o in ob)
+                {
+                    if (o[0].ToString() == sessionsMod[i].ToString())
+                    {
+                        objs.Add(o);
+                    }
+                }
+
+                objss[i] = objs;
+            }
+
+            List<object[]> result = new List<object[]>();
+            result.Add(new object[] { "Session_number", "Profession", "Middle_mark" });
+
+            foreach (List<object[]> obj in objss)
+            {
+                foreach (Team t in teamsMod)
+                {
+                    float middle = 0;
+                    int count = 0;
+
+                    foreach (object[] o in obj)
+                    {
+                        if (o[1].ToString() == t.Profession)
+                        {
+                            count++;
+                            middle += (int)o[2];
+                        }
+                    }
+
+                    middle = middle / count;
+
+                    result.Add(new object[] { obj[1][0], t.Profession, middle });
+                }
+            }
+
+            return result;
+        }
+
+        public List<object[]> GetTeachersMiddleMarks(int SessionNumber)
+        {
+
+            if (results == null)
+            {
+                results = resultController.Reed(out ColumnsNamesResult);
+            }
+
+            //find right session
+            List<Schedule> schedules = GetSession(SessionNumber, results);
+
+            //modyfy results for ryght session
+            List<Result> modifyResults =
+                ModyfyResults(results, schedules).Distinct().ToList();
+
+            List<Teacher> teachers = new List<Teacher>();
+            foreach (Schedule s in schedules)
+            {
+                teachers.Add(teacherController.Reed(s.TeacherID));
+            }
+
+            List<object[]> ob = new List<object[]>();
+
+            List<int> sessions = new List<int>();
+
+            for (int i = 0; i < schedules.Count(); i++)
+            {
+                ob.Add(new object[] { schedules[i].SessionNumber, teachers[i].Name, modifyResults[i].Mark });
+
+                sessions.Add(schedules[i].SessionNumber);
+
+            }
+
+            List<Teacher> teachersMod = teachers.Distinct().ToList<Teacher>();
+
+            //find original values in seccion numbers
+            List<int> sessionsMod = sessions.Distinct().ToList<int>();
+
+            List<object[]>[] objss = new List<object[]>[sessionsMod.Count()];
+
+            //finding min max middle
+
+            //segmentation by session numbers
+            for (int i = 0; i < sessionsMod.Count(); i++)
+            {
+                List<object[]> objs = new List<object[]>();
+
+                foreach (object[] o in ob)
+                {
+                    if (o[0].ToString() == sessionsMod[i].ToString())
+                    {
+                        objs.Add(o);
+                    }
+                }
+
+                objss[i] = objs;
+            }
+
+            List<object[]> result = new List<object[]>();
+            result.Add(new object[] { "Session_number", "Teacher", "Middle_mark" });
+
+            foreach (List<object[]> obj in objss)
+            {
+                foreach (Teacher t in teachersMod)
+                {
+                    float middle = 0;
+                    int count = 0;
+
+                    foreach (object[] o in obj)
+                    {
+                        if (o[1].ToString() == t.Name)
+                        {
+                            count++;
+                            middle += (int)o[2];
+                        }
+                    }
+
+                    middle = middle / count;
+
+                    result.Add(new object[] { obj[1][0], t.Name, middle });
+                }
+            }
+
+            return result;
+        }
 
         private List<Schedule> GetSession(int SessionNumber, List<Result> ModifyResults)
         {

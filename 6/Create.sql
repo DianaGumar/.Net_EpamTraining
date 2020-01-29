@@ -90,6 +90,9 @@ values  (5, 1, 1, '2020-01-14'),
 		(5, 2, 4, '2020-01-09');
 
 insert into Results (StudentsID, ScheduleID, Mark)
+values (1, 7, 5), (2, 7, 4), (3, 8, 6), (4, 8, 8);
+
+insert into Results (StudentsID, ScheduleID, Mark)
 values (1, 1, 9),
 	   (1, 2, 8),
 	   (1, 3, 10),
@@ -110,6 +113,48 @@ values (1, 1, 9),
 	   (4, 5, 3),
 	   (4, 9, 1),
 	   (4, 10, 5);
+
+
+
+
+-- added new changes to the condition of the seventh task
+
+alter table Teams add Profession nvarchar(50) not null;
+
+update Teams set Profession = 'game_dev' where TeamID = 1;
+update Teams set Profession = 'design_and_production' where TeamID = 2;
+
+
+create table Teachers
+(
+	TeacherID int primary key auto_increment not null,
+    Name nvarchar(30) not null    
+);
+
+insert into Teachers (Name)
+values ('Kurochka'), 
+	   ('Avakian'),
+       ('Sobolev'),
+       ('Kondratuk'),
+       ('Zaharenko');
+
+alter table Schedules add TeacherID int not null;
+
+
+update Schedules set TeacherID = 1 where ScheduleID = 1;
+update Schedules set TeacherID = 2 where ScheduleID = 2;
+update Schedules set TeacherID = 3 where ScheduleID = 3;
+update Schedules set TeacherID = 4 where ScheduleID = 4;
+update Schedules set TeacherID = 5 where ScheduleID = 5;
+update Schedules set TeacherID = 1 where ScheduleID = 6;
+update Schedules set TeacherID = 2 where ScheduleID = 7;
+update Schedules set TeacherID = 3 where ScheduleID = 8;
+update Schedules set TeacherID = 4 where ScheduleID = 9;
+update Schedules set TeacherID = 5 where ScheduleID = 10;
+
+
+alter table Schedules add foreign key (TeacherID)
+	references Teachers (TeacherID) on delete cascade;
 
 
 

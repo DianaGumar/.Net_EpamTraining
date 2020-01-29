@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 
 namespace StudentsResult.Objects
 {
-    public class Team : IExported
+    public class Teacher
     {
-        public Team() { }
-        public Team(int id, string name, string Profession)
+
+        public Teacher() { }
+
+        public Teacher(string Name)
         {
-            TeamID = id;
-            Name = name;
-            this.Profession = Profession;
-        }
-        public Team(string name, string Profession)
-        {
-            Name = name;
-            this.Profession = Profession;
+            this.Name = Name;
         }
 
-        public int TeamID;
+        public Teacher(int TeacherID, string Name)
+        {
+            this.TeacherID = TeacherID;
+            this.Name = Name;
+        }
+
+
+        public int TeacherID;
         public string Name;
-        public string Profession;
 
         /// <summary>
         /// for export
@@ -31,25 +32,28 @@ namespace StudentsResult.Objects
         /// <returns></returns>
         public object[] ToObject()
         {
-            return new object[] { TeamID, Name, Profession };
+            return new object[] { TeacherID, Name };
         }
 
         public override bool Equals(object obj)
         {
             if (obj == null)
                 return false;
-            Team t = obj as Team;
-            if (t as Team == null)
+            Teacher t = obj as Teacher;
+            if (t as Teacher == null)
                 return false;
 
-            return t.TeamID == this.TeamID;
+            return t.TeacherID == this.TeacherID;
 
         }
 
         public override int GetHashCode()
         {
-            return TeamID;
+            return this.TeacherID;
 
         }
+
+
     }
+
 }

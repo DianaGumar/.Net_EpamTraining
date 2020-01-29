@@ -284,6 +284,37 @@ namespace UnitTestStudentsResults
 
         }
 
+        [TestMethod]
+        public void TestGetPositionsMiddleMarks()
+        {
+            int SessionNumber = 5;
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
+            StatisticSession ss = new StatisticSession();
+            List<object[]> obj = ss.GetPositionsMiddleMarks(SessionNumber);
+
+            bool actual = ExcelExport.Export(obj, Path,
+                "_Task7__Middle_Profession_marks_sessionNumber" + SessionNumber);
+
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod]
+        public void TestGetTeachersMiddleMarks()
+        {
+            int SessionNumber = 5;
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
+            StatisticSession ss = new StatisticSession();
+            List<object[]> obj = ss.GetTeachersMiddleMarks(SessionNumber);
+
+            bool actual = ExcelExport.Export(obj, Path,
+                "_Task7__Middle_Teachers_marks_sessionNumber" + SessionNumber);
+
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+        }
 
     }
 }

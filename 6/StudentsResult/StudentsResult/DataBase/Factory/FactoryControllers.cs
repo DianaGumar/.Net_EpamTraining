@@ -8,7 +8,7 @@ namespace StudentsResult.DataBase.Factory
     /// <summary>
     /// for comfortable
     /// </summary>
-    public enum ControllersFormat { Student, Exam, Result, Schedule, Team }
+    public enum ControllersFormat { Student, Exam, Result, Schedule, Team, Teacher }
 
     /// <summary>
     /// factory method
@@ -34,6 +34,9 @@ namespace StudentsResult.DataBase.Factory
             {
                 case ControllersFormat.Exam:
                     return ExamController.getInstance(DbName, Login, Password);
+
+                case ControllersFormat.Teacher:
+                    return TeacherController.getInstance(DbName, Login, Password);
 
                 case ControllersFormat.Student:
                     return StudentController.getInstance(DbName, Login, Password);
