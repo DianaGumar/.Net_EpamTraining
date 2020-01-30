@@ -15,7 +15,7 @@ namespace StudentsResult.DataBase
 
         public abstract int Create(E obj);
 
-        public abstract int Delete(K id);
+       public abstract int Delete(K id);
 
         public abstract int Update(E obj);
 

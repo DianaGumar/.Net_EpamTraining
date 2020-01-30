@@ -66,8 +66,12 @@ namespace StudentsResult.DataBase
                 // matches the primary key field value
                 return table.SingleOrDefault<T>(delegate (T t)
                 {
-                    string memberId = t.GetType().GetProperty(pk).GetValue(t, null).ToString();
-                    return memberId.ToString() == id.ToString();
+                    //some reflection
+                    Type type = typeof(T);
+                    var Entrails = type.GetFields();
+                    var ooo = Entrails[0].GetValue(t);
+
+                    return (int)ooo == id;
                 });
 
             }
@@ -101,25 +105,25 @@ namespace StudentsResult.DataBase
         {
             try
             {
-                // create a new instance of an object with the
-                // type matching the passed object's type
                 Type tType = obj.GetType();
-                Object newObj = Activator.CreateInstance(tType, new object[0]);
+                Object newObj = Activator.CreateInstance(tType, new object[0]);           
 
                 // get the properties for the passed in object
                 PropertyDescriptorCollection originalProps = TypeDescriptor.GetProperties(obj);
-            
+
                 // copy over the content of the passed in data
                 // to the new object of the same type –
                 // this gives us an object
                 // that is not tied to any existing data context
                 foreach (PropertyDescriptor currentProp in originalProps)
                 {
-                    if (currentProp.Attributes[typeof(System.Data.Linq.Mapping.ColumnAttribute)] != null)
+                    if (currentProp.Attributes[typeof( System.Data.Linq.Mapping.ColumnAttribute)] !=  null)
                     {
                         object val = currentProp.GetValue(obj);
                         currentProp.SetValue(newObj, val);
+
                     }
+
                 }
 
                 // to work with disconnected data, attach the new                 
@@ -130,6 +134,7 @@ namespace StudentsResult.DataBase
                 table.Attach((T)newObj, true);
                 table.DeleteOnSubmit((T)newObj);
                 connection.SubmitChanges();
+
             }
             catch (Exception e)
             {

@@ -42,14 +42,31 @@ namespace UnitTestStudentsResults
             string Login = "root";
             string Password = "1111";
 
-            Student st = new Student("Olga", 0, new DateTime(2000, 3, 1), 1);
-
             Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
-            Student data = controller.Reed(10);
+            Student data = controller.Reed(2);
 
             bool actual = false, expected = true;
             if (data != null) { actual = true; }
+
+            Assert.AreEqual(actual, expected);
+
+        }
+
+        [TestMethod]
+        public void TestDelete()
+        {
+            string DBName = "studentsresults";
+            string Login = "root";
+            string Password = "1111";
+
+            Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
+
+            Student st = new Student(1003, "Olia", 0, new DateTime(2000, 3, 1), 1);
+            int data = controller.Delete(st);
+
+            bool actual = false, expected = true;
+            if (data > 0) { actual = true; }
 
             Assert.AreEqual(actual, expected);
 
@@ -62,14 +79,14 @@ namespace UnitTestStudentsResults
             string Login = "root";
             string Password = "1111";
 
-            Student st = new Student(5, "Olga", 0, new DateTime(2000, 3, 1), 1);
+            Student st = new Student(1002, "Olia", 0, new DateTime(2000, 3, 1), 1);
 
             Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
             int count = controller.Update(st);
 
             bool actual = false, expected = true;
-            if (count > 0 ) { actual = true; }
+            //if (count > 0 ) { actual = true; }
 
             Assert.AreEqual(actual, expected);
 
@@ -83,7 +100,10 @@ namespace UnitTestStudentsResults
             string Password = "1111";
 
             Student st = new Student("Diana", 0, new DateTime(2000, 5, 3), 1);
+            //Student st = new Student( "Oli", 0, new DateTime(2000, 3, 1), 1);
+
             Exam ex = new Exam("GIM", 0);
+
 
             Controller<Student> controllerStudent = new Controller<Student>(DBName, Login, Password);
             Controller<Exam> controllerExam = new Controller<Exam>(DBName, Login, Password);
