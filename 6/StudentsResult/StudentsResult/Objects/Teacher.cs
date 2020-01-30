@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Linq.Mapping;
 
 namespace StudentsResult.Objects
 {
+    [Table(Name = "Teachers")]
     public class Teacher
     {
 
@@ -22,8 +20,10 @@ namespace StudentsResult.Objects
             this.Name = Name;
         }
 
-
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int TeacherID;
+
+        [Column(Name = "Name")]
         public string Name;
 
         /// <summary>

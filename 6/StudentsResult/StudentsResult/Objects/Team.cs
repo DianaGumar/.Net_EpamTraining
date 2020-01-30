@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Linq.Mapping;
 
 namespace StudentsResult.Objects
 {
+    [Table(Name = "Teams")]
     public class Team : IExported
     {
         public Team() { }
@@ -21,8 +19,13 @@ namespace StudentsResult.Objects
             this.Profession = Profession;
         }
 
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int TeamID;
+
+        [Column(Name = "Name")]
         public string Name;
+
+        [Column(Name = "Profession")]
         public string Profession;
 
         /// <summary>

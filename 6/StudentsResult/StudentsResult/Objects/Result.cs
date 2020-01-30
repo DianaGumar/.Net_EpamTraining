@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Linq.Mapping;
 
 namespace StudentsResult.Objects
 {
+    [Table(Name = "Results")]
     public class Result : IExported
     {
         public Result() { }
@@ -25,10 +23,17 @@ namespace StudentsResult.Objects
                  
         }
 
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int ResultsID;
+
+        [Column(Name = "StudentsID")]
         public int StudentsID;
+
+        [Column(Name = "ScheduleID")]
         public int ScheduleID;
-        public int? Mark;
+
+        [Column(Name = "Mark")]
+        public int Mark;
 
         /// <summary>
         /// for export

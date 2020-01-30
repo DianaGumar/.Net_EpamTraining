@@ -5,292 +5,174 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Reflection;
+using System.Data.Linq;
+
+using System.Collections.ObjectModel;
+using System.Data.Linq.Mapping;
+using System.ComponentModel;
 
 namespace StudentsResult.DataBase
 {
-    public class Controller<T> : AbstractController<T, int> where T : class, new()
+    public class Controller<T> : AbstractController_mssql<T, int> where T : class, new()
     {
         public Controller(string DBName, string login, string password)
         {
             connection = GetConnection(DBName, login, password);
-
-            Entrails = GetEntrailsTypesNames();
-            Name = typeof(T).Name;
-
         }
 
-        MySqlConnection connection;
-
-        private string Name;
-        List<string>[] Entrails;
-
-        /// <summary>
-        /// reflection for jeneric class
-        /// </summary>
-        /// <returns></returns>
-        private List<string>[] GetEntrailsTypesNames()
-        {
-            List<string>[] strs = new List<string>[2] { new List<string>(), new List<string>() };         
-
-            Type type = typeof(T);
-
-            var Entrails = type.GetFields();
-
-            foreach(FieldInfo fieldsInfo in Entrails)
-            {
-                strs[0].Add(fieldsInfo.FieldType.Name);
-                strs[1].Add(fieldsInfo.Name);
-            }
-
-            return strs;
-        }
-
-        /// <summary>
-        /// reflection for jeneric class
-        /// </summary>
-        /// <returns></returns>
-        private List<object> GetEntrailsValues(T obj)
-        {
-            List<object> strs = new List<object>();
-            Type type = typeof(T);
-
-            var Entrails = type.GetFields();
-
-            foreach (FieldInfo fieldsInfo in Entrails)
-            {
-                strs.Add(fieldsInfo.GetValue(obj));
-            }
-
-            return strs;
-        }
-
-
-        /// <summary>
-        /// set fields 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private T ReflectionWork(object[] obj)
-        {
-            T t = new T();
-
-            Type type = typeof(T);            
-            var fields = type.GetFields();
-
-            int i = 0;
-            foreach(FieldInfo fieldInfo in fields)
-            {
-                fieldInfo.SetValue(t, obj[i]);
-                i++;
-            }
-
-            return t;
-        }
+        DataContext connection;
 
         /// <summary>
         /// reed all objects in table
         /// </summary>
         /// <param name="columnsNames"></param>
         /// <returns>list by type T</returns>
-        public List<T> Reed(out string[] columnsNames)
+        public List<T> Reed(out string[] columnsName)
         {
-            List<T> entity = new List<T>();
-            columnsNames = null;
-
-            string sql = "select * from " + Name + "s";
-
+            columnsName = new string[] { };
             try
             {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    //take columns names
-                    columnsNames = new string[reader.FieldCount];
-
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        columnsNames[i] = reader.GetName(i);
-                    }
-
-
-                    //take data
-                    while (reader.Read())
-                    {
-                        object[] inside = new object[reader.FieldCount];
-                        reader.GetValues(inside);
-                        //возвращает объект T, todo
-                        //полученный из массива значений Object
-                        T t = ReflectionWork(inside);
-                        entity.Add(t);
-
-                    }
-
-                    //reader.NextResult();
-                }
-                reader.Close();
+                Table<T> entity = connection.GetTable<T>();
+                return entity.ToList();
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
-            finally { connection.Close(); }
 
-            return entity;
+            return null;
         }
 
         public override T Reed(int id)
         {
-            T entity = new T();
-
-            string sql = "select * from " + Name + "s where " + Entrails[1][0] + "=" + id ;
-
             try
             {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                MySqlDataReader reader = command.ExecuteReader();
+                // get the table by the type passed in
+                var table = connection.GetTable<T>();
 
-                if (reader.HasRows)
+                // get the metamodel mappings (database to domain objects)
+                MetaModel modelMap = table.Context.Mapping;
+
+                // get the data members for this type
+                ReadOnlyCollection<MetaDataMember> dataMembers
+                    = modelMap.GetMetaType(typeof(T)).DataMembers;
+
+                // find the primary key field name
+                // by checking for IsPrimaryKey
+                string pk = (dataMembers.Single<MetaDataMember>(m => m.IsPrimaryKey)).Name;
+
+                // return a single object where the id argument
+                // matches the primary key field value
+                return table.SingleOrDefault<T>(delegate (T t)
                 {
-                    reader.Read();
-                    object[] inside = new object[reader.FieldCount];
-                    reader.GetValues(inside);
-                    entity = ReflectionWork(inside);
-
-                }
-                reader.Close();
+                    string memberId = t.GetType().GetProperty(pk).GetValue(t, null).ToString();
+                    return memberId.ToString() == id.ToString();
+                });
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
-            finally { connection.Close(); }
 
-            return entity;
+            return null;
         }
 
         public override int Create(T obj)
         {
-            //create sql query
-            List<object> values = GetEntrailsValues(obj);
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("insert into " + Name + "s (");
-            int count = Entrails[0].Count;
-            for (int i = 1; i < count - 1; i++)
-            {
-                sb.Append(Entrails[1][i] + ",");
-            }
-            sb.Append(Entrails[1][count - 1]);
-            sb.Append(") values( ");
-            for (int i = 1; i < count - 1; i++)
-            {
-                if (Entrails[0][i].Equals("DateTime"))
-                {
-                    values[i] = ((DateTime)values[i]).ToString("yyyy-MM-dd");
-                }
-                sb.Append("'" + values[i] + "', ");
-            }
-            if (Entrails[0][count - 1].Equals("DateTime"))
-            {
-                values[count - 1] = ((DateTime)values[count - 1]).ToString("yyyy-MM-dd");
-            }
-            sb.Append(values[count-1] + " )");
-
-            string sql = sb.ToString();
-//            insert into comission.entrants(EntrantName, ScoreDiploma, Student)
-//            values('Mik', '5', 0);
-            int countRowsUffected = 0;
-
-            //----------------------------------
-
             try
             {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                countRowsUffected = command.ExecuteNonQuery();
+                var table = connection.GetTable<T>();
+
+                table.InsertOnSubmit(obj);
+                connection.SubmitChanges();
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
-            finally { connection.Close(); }
 
-            return countRowsUffected;
+            return 1;
         }
 
-        public override int Delete(int id)
+        public override int Delete(T obj)
         {
-            string sql = "delete * from " + Name + "s where " + Entrails[1][0] + "=" + id;
-            int countRowsUffected = 0;
-
             try
             {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                countRowsUffected = command.ExecuteNonQuery();
+                // create a new instance of an object with the
+                // type matching the passed object's type
+                Type tType = obj.GetType();
+                Object newObj = Activator.CreateInstance(tType, new object[0]);
 
+                // get the properties for the passed in object
+                PropertyDescriptorCollection originalProps = TypeDescriptor.GetProperties(obj);
+            
+                // copy over the content of the passed in data
+                // to the new object of the same type –
+                // this gives us an object
+                // that is not tied to any existing data context
+                foreach (PropertyDescriptor currentProp in originalProps)
+                {
+                    if (currentProp.Attributes[typeof(System.Data.Linq.Mapping.ColumnAttribute)] != null)
+                    {
+                        object val = currentProp.GetValue(obj);
+                        currentProp.SetValue(newObj, val);
+                    }
+                }
+
+                // to work with disconnected data, attach the new                 
+                // object to the table, call delete
+                // on submit, and then submit changes
+
+                var table = connection.GetTable<T>();
+                table.Attach((T)newObj, true);
+                table.DeleteOnSubmit((T)newObj);
+                connection.SubmitChanges();
             }
             catch (Exception e)
             {
                 Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
-            finally { connection.Close(); }
 
-            return countRowsUffected;
+            return 1;
         }
 
         public override int Update(T obj)
         {
-            //create sql query
-            List<object> values = GetEntrailsValues(obj);
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("update " + Name + "s set ");
-            int count = Entrails[0].Count;
-            for (int i = 1; i < count - 1; i++)
-            {
-                //проверка на злощастный тип даты- из за несовпдения форматов
-                if (Entrails[0][i].Equals("DateTime"))
-                {
-                    values[i] = ((DateTime)values[i]).ToString("yyyy-MM-dd");
-                }
-                sb.Append(Entrails[1][i] + "= '" + values[i] + "', ");
-            }
-            if (Entrails[0][count - 1].Equals("DateTime"))
-            {
-                values[count - 1] = ((DateTime)values[count - 1]).ToString("yyyy-MM-dd");
-            }
-            sb.Append(Entrails[1][count-1] + "= '" + values[count-1] + "'");
-            sb.Append(" where " + Entrails[1][0] + "= " + values[0]);
-
-            string sql = sb.ToString();
-            // update comission.entrants set EntrantName = 'Igor', ScoreDiploma = 8, Student = 0 
-            //where EntrantID = 6;
-            int countRowsUffected = 0;
-
-            //----------------------------------
-
             try
             {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                countRowsUffected = command.ExecuteNonQuery();
+                // create a new instance of the object
+                Object newObj = Activator.CreateInstance(typeof(T), new object[0]);
+
+                PropertyDescriptorCollection originalProps = TypeDescriptor.GetProperties(obj);
+
+                // set the new object to match the passed in object
+                foreach (PropertyDescriptor currentProp in originalProps)
+                {
+                    if (currentProp.Attributes[typeof(System.Data.Linq.Mapping.ColumnAttribute)] != null)
+                    {
+                        object val = currentProp.GetValue(obj);
+                        currentProp.SetValue(newObj, val);
+
+                    }
+                }
+
+                // attach the new object to a new data context and
+                // call submit changes on the context
+                var table = connection.GetTable<T>();
+
+                table.Attach((T)newObj, true);
+                connection.SubmitChanges();
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
-            finally { connection.Close(); }
 
-            return countRowsUffected;
+            return 1;
         }
     }
 }

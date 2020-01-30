@@ -29,6 +29,5 @@ namespace StudentsResult.DataBase
             return conn;
         }
 
-
     }
 }

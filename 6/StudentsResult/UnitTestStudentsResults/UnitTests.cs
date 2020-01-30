@@ -22,8 +22,6 @@ namespace UnitTestStudentsResults
             string Login = "root";
             string Password = "1111";
 
-            Student st = new Student("Olga", 0, new DateTime(2000, 3, 1), 1);
-
             Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
             string[] columnsName;
@@ -310,6 +308,21 @@ namespace UnitTestStudentsResults
 
             bool actual = ExcelExport.Export(obj, Path,
                 "_Task7__Middle_Teachers_marks_sessionNumber" + SessionNumber);
+
+            bool expected = true;
+
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod]
+        public void TestGetYearsDinamicSubjectsMarks()
+        {
+            string Path = @"E:\Epam\.Net_EpamTraining\6";
+            StatisticSession ss = new StatisticSession();
+            List<object[]> obj = ss.GetYearsDinamicSubjectsMarks();
+
+            bool actual = ExcelExport.Export(obj, Path,
+                "_Task7__Middle_Subject_marks_for_years");
 
             bool expected = true;
 

@@ -52,7 +52,31 @@ namespace Statistic
         string[] ColumnsNamesTeachers;
 
 
-        //todo change loggic with one necessary sql query
+        //public List<object[]> GetExpelledStudents_linq()
+        //{
+
+
+
+        //    //IEnumerable<object[]> objSorted;
+
+        //    //if (isString == false)
+        //    //{
+        //    //    objSorted = obj.OrderBy(i => i[column]);
+        //    //}
+        //    //else
+        //    //{
+        //    //    objSorted = obj.OrderBy(i => i[column]);
+        //    //    //todo nead to use IComparer for good string sort
+        //    }
+
+        //    List<object[]> objSort = objSorted.ToList();
+
+        //    return new List<object[]>();
+        //}
+
+
+
+
 
         public List<object[]> GetExpelledStudents(int SessionNumber)
         {
@@ -440,6 +464,94 @@ namespace Statistic
             }
 
             return result;
+        }
+
+        public List<object[]> GetYearsDinamicSubjectsMarks()
+        {
+            if (results == null)
+            {
+                results = resultController.Reed(out ColumnsNamesResult);
+            }
+
+            //find existing sessions number
+            List<Schedule> schedules = new List<Schedule>();
+            foreach (Result r in results)
+            {
+                schedules.Add(scheduleController.Reed(r.ScheduleID));
+            }
+
+            List<Exam> exams = new List<Exam>();
+            foreach (Schedule s in schedules)
+            {
+                exams.Add(examController.Reed(s.ExamID));
+            }
+
+            List<object[]> ob = new List<object[]>();
+
+            List<DateTime> sessions = new List<DateTime>();
+
+            for (int i = 0; i < schedules.Count(); i++)
+            {
+                ob.Add(new object[] { schedules[i].DateExam, exams[i].Name, results[i].Mark });
+
+                sessions.Add(schedules[i].DateExam);
+
+            }
+
+            List<Exam> examsMod = exams.Distinct().ToList<Exam>();
+
+            //find original values in seccion numbers
+            List<DateTime> sessionsMod = sessions.Distinct().ToList();
+
+            List<object[]>[] objss = new List<object[]>[sessionsMod.Count()];
+
+            //segmentation by session numbers
+            for (int i = 0; i < sessionsMod.Count(); i++)
+            {
+                List<object[]> objs = new List<object[]>();
+
+                foreach (object[] o in ob)
+                {
+                    if (o[0].ToString() == sessionsMod[i].ToString())
+                    {
+                        objs.Add(o);
+                    }
+                }
+
+                objss[i] = objs;
+            }
+
+            List<object[]> result = new List<object[]>();
+            result.Add(new object[] { "Year", "Subject", "Middle_mark" });
+
+            foreach (List<object[]> obj in objss)
+            {
+                foreach (Exam t in examsMod)
+                {
+                    float middle = 0;
+                    int count = 0;
+
+                    foreach (object[] o in obj)
+                    {
+                        if (o[1].ToString() == t.Name)
+                        {
+                            count++;
+                            middle += (int)o[2];
+                        }
+                    }
+
+                    if(count != 0)
+                    {
+                        middle = middle / count;
+
+                        result.Add(new object[] { obj[1][0].ToString(), t.Name, middle });
+                    }
+                    
+                }
+            }
+
+            return result;
+
         }
 
         private List<Schedule> GetSession(int SessionNumber, List<Result> ModifyResults)

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Linq.Mapping;
 
 namespace StudentsResult.Objects
 {
+    [Table(Name = "Students")]
     public class Student :  IExported
     {
         /// <summary>
@@ -42,10 +40,19 @@ namespace StudentsResult.Objects
         }
 
         //must be indenticle with data base fields names
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int StudentsID;
+
+        [Column(Name = "Name")]
         public string Name;
+
+        [Column(Name = "IsMale")]
         public int IsMale;
+
+        [Column(Name = "Date")]
         public DateTime Date;
+
+        [Column(Name = "TeamID")]
         public int TeamID;
 
         /// <summary>
