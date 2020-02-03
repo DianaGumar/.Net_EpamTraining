@@ -4,7 +4,7 @@ using System.Data.Linq.Mapping;
 namespace StudentsResult.Objects
 {
     [Table(Name = "Students")]
-    public class Student :  IExported
+    public class Student :  IExported, IIntKey
     {
         /// <summary>
         /// for reflection
@@ -82,5 +82,9 @@ namespace StudentsResult.Objects
 
         }
 
+        public int GetID()
+        {
+            return StudentsID;
+        }
     }
 }

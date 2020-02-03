@@ -4,7 +4,7 @@ using System.Data.Linq.Mapping;
 namespace StudentsResult.Objects
 {
     [Table(Name = "Exams")]
-    public class Exam : IExported
+    public class Exam : IIntKey, IExported
 
     {
         public Exam() { }
@@ -38,5 +38,9 @@ namespace StudentsResult.Objects
             return new object[] { ExamID, Name, IsExam };
         }
 
+        public int GetID()
+        {
+            return ExamID;
+        }
     }
 }

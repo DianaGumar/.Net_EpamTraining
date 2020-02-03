@@ -44,7 +44,7 @@ namespace UnitTestStudentsResults
 
             Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
-            Student data = controller.Reed(2);
+            Student data = controller.Reed(1);
 
             bool actual = false, expected = true;
             if (data != null) { actual = true; }
@@ -62,7 +62,8 @@ namespace UnitTestStudentsResults
 
             Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
-            Student st = new Student(1003, "Olia", 0, new DateTime(2000, 3, 1), 1);
+            //Student st = new Student(5, "Olga", 0, new DateTime(2000, 3, 1), 1);
+            Student st = new Student(1005, "Diana", 0, new DateTime(2000, 5, 3), 1);
             int data = controller.Delete(st);
 
             bool actual = false, expected = true;
@@ -79,14 +80,15 @@ namespace UnitTestStudentsResults
             string Login = "root";
             string Password = "1111";
 
-            Student st = new Student(1002, "Olia", 0, new DateTime(2000, 3, 1), 1);
+            Student st = new Student(1005, "Diana", 0, new DateTime(2000, 5, 3), 1);
+            //Student st = new Student(1003, "Olia", 0, new DateTime(2000, 3, 1), 1);
 
             Controller<Student> controller = new Controller<Student>(DBName, Login, Password);
 
             int count = controller.Update(st);
 
             bool actual = false, expected = true;
-            //if (count > 0 ) { actual = true; }
+            if (count > 0 ) { actual = true; }
 
             Assert.AreEqual(actual, expected);
 

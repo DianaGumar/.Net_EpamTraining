@@ -68,6 +68,7 @@
     <Compile Include="DataBase\Controller_recursy.cs" />
     <Compile Include="DataBase\Factory\FactoryControllers.cs" />
     <Compile Include="IExported.cs" />
+    <Compile Include="IIntKey.cs" />
     <Compile Include="Objects\Exam.cs" />
     <Compile Include="Objects\Result.cs" />
     <Compile Include="Objects\Schedule.cs" />

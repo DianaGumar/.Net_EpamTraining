@@ -4,7 +4,7 @@ using System.Data.Linq.Mapping;
 namespace StudentsResult.Objects
 {
     [Table(Name = "Teachers")]
-    public class Teacher
+    public class Teacher: IExported, IIntKey
     {
 
         public Teacher() { }
@@ -53,7 +53,10 @@ namespace StudentsResult.Objects
 
         }
 
-
+        public int GetID()
+        {
+            return TeacherID; 
+        }
     }
 
 }

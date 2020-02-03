@@ -13,14 +13,20 @@ using System.ComponentModel;
 
 namespace StudentsResult.DataBase
 {
-    public class Controller<T> : AbstractController_mssql<T, int> where T : class, new()
+    public class Controller<T> : AbstractController_mssql<T, int> where T : class, IIntKey, new()
     {
         public Controller(string DBName, string login, string password)
         {
-            connection = GetConnection(DBName, login, password);
+
+            this.DBName = DBName;
+            this.login = login;
+            this.password = password;
         }
 
-        DataContext connection;
+        string DBName;
+        string login;
+        string password;
+
 
         /// <summary>
         /// reed all objects in table
@@ -30,23 +36,18 @@ namespace StudentsResult.DataBase
         public List<T> Reed(out string[] columnsName)
         {
             columnsName = new string[] { };
-            try
+            using (var connection = GetConnection(DBName, login, password))
             {
                 Table<T> entity = connection.GetTable<T>();
                 return entity.ToList();
 
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Connect to bd exeption: ", e.Message);
-            }
 
-            return null;
         }
 
         public override T Reed(int id)
         {
-            try
+            using (var connection = GetConnection(DBName, login, password))
             {
                 // get the table by the type passed in
                 var table = connection.GetTable<T>();
@@ -75,17 +76,12 @@ namespace StudentsResult.DataBase
                 });
 
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Connect to bd exeption: ", e.Message);
-            }
 
-            return null;
         }
 
         public override int Create(T obj)
         {
-            try
+            using (var connection = GetConnection(DBName, login, password))
             {
                 var table = connection.GetTable<T>();
 
@@ -93,88 +89,40 @@ namespace StudentsResult.DataBase
                 connection.SubmitChanges();
 
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Connect to bd exeption: ", e.Message);
-            }
 
             return 1;
         }
 
         public override int Delete(T obj)
         {
-            try
+            if (Reed((int)obj.GetID()) != null)
             {
-                Type tType = obj.GetType();
-                Object newObj = Activator.CreateInstance(tType, new object[0]);           
-
-                // get the properties for the passed in object
-                PropertyDescriptorCollection originalProps = TypeDescriptor.GetProperties(obj);
-
-                // copy over the content of the passed in data
-                // to the new object of the same type –
-                // this gives us an object
-                // that is not tied to any existing data context
-                foreach (PropertyDescriptor currentProp in originalProps)
+                using (var connection = GetConnection(DBName, login, password))
                 {
-                    if (currentProp.Attributes[typeof( System.Data.Linq.Mapping.ColumnAttribute)] !=  null)
-                    {
-                        object val = currentProp.GetValue(obj);
-                        currentProp.SetValue(newObj, val);
-
-                    }
-
+                    var table = connection.GetTable<T>();
+                    table.Attach(obj);
+                    table.DeleteOnSubmit(obj);
+                    connection.SubmitChanges();
                 }
-
-                // to work with disconnected data, attach the new                 
-                // object to the table, call delete
-                // on submit, and then submit changes
-
-                var table = connection.GetTable<T>();
-                table.Attach((T)newObj, true);
-                table.DeleteOnSubmit((T)newObj);
-                connection.SubmitChanges();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
 
             return 1;
         }
 
         public override int Update(T obj)
-        {
-            try
+        {           
+
+            //if object exist
+            //var table = connection.GetTable<T>().Where(t => (int)t.GetID() == (int)obj.GetID());
+
+            if (Reed((int)obj.GetID()) != null)
             {
-                // create a new instance of the object
-                Object newObj = Activator.CreateInstance(typeof(T), new object[0]);
-
-                PropertyDescriptorCollection originalProps = TypeDescriptor.GetProperties(obj);
-
-                // set the new object to match the passed in object
-                foreach (PropertyDescriptor currentProp in originalProps)
+                using (var con = GetConnection(DBName, login, password))
                 {
-                    if (currentProp.Attributes[typeof(System.Data.Linq.Mapping.ColumnAttribute)] != null)
-                    {
-                        object val = currentProp.GetValue(obj);
-                        currentProp.SetValue(newObj, val);
-
-                    }
+                    con.GetTable<T>().Attach(obj);
+                    con.Refresh(RefreshMode.KeepCurrentValues, obj);
+                    con.SubmitChanges();
                 }
-
-                // attach the new object to a new data context and
-                // call submit changes on the context
-                var table = connection.GetTable<T>();
-
-                table.Attach((T)newObj, true);
-                connection.SubmitChanges();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Connect to bd exeption: ", e.Message);
             }
 
             return 1;

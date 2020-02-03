@@ -26,7 +26,7 @@ namespace StudentsResult.DataBase
 
             string str = @"Data Source=.\SQLEXPRESS;Initial Catalog="+ DBName +";Integrated Security=True";
 
-            DataContext conn = new DataContext(str);
+            DataContext conn = new DataContext(str); 
 
             return conn;
         }
